@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta content='text/html; charset=utf-8' http-equiv='content-type'>
+        <title>srlplayer2 - lists popular gaming streams in a tabular format with built-in chat.</title>
+        <meta name='description' content='Twitch stream viewer specifically for speedrunslive streamers <3. http://srl.takbytes.com'>
+        <meta name='keywords' content='srlplayer takbytes.com SRL speedrunslive speedrunslive streamer speedrunslivestreamer srlstreamer srlplayer twitch twitchstreamer twitchplayer'>
+        <meta name='author' content='takada'>
+
+        <link rel='stylesheet' href='css/main.css'>
+        <script src='js/jquery-1.11.1.min.js'></script>
+        <!-- <script src='js/jquery-1.11.1.min.map'></script> -->
+        <script src='js/angular.min.js'></script>
+        <!--// <script src='js/angular.min.js.map'></script>
+        // <script src='js/angular-route.min.js'></script>
+        // <script src='js/angular-route.min.js.map'></script> -->
+    </head>
+
+    <script>
+
+    var app = angular.module('srlplayer2', []);
+
+    app.controller('MainController', function($scope, $http) {
+        $scope.data0 = null;
+        $scope.data1 = null;
+        $scope.data2 = null;
+        $scope.data3 = null;
+        $scope.data4 = null;
+        $scope.data5 = null;
+
+        $scope.urls = [ // List of REST api calls with with all the streams we want.
+            'http://sa.tak.com:4001/hearthstone?callback=JSON_CALLBACK',
+            'http://sa.tak.com:4001/dota?callback=JSON_CALLBACK',
+            'http://sa.tak.com:4001/starcraft?callback=JSON_CALLBACK',
+            'http://sa.tak.com:4001/counterstrike?callback=JSON_CALLBACK',
+            'http://sa.tak.com:4001/hitbox?callback=JSON_CALLBACK',
+            'http://sa.tak.com:4001/speedruns?callback=JSON_CALLBACK'
+        ];
+
+        $http.get($scope.urls[0]).success(function(data) { $scope.data0 = angular.fromJson(data); console.log(angular.fromJson(data))} ); // Data returned is JSON. Convert it to Array Object for populating our stream list.
+        $http.get($scope.urls[1]).success(function(data) { $scope.data1 = data} );
+        $http.get($scope.urls[2]).success(function(data) { $scope.data2 = data} );
+        $http.get($scope.urls[3]).success(function(data) { $scope.data3 = data} );
+        $http.get($scope.urls[4]).success(function(data) { $scope.data4 = data} );
+        $http.get($scope.urls[5]).success(function(data) { $scope.data5 = data} );
+    });
+    </script>
+
+<body ng-app='srlplayer2'>
+
+    <div id='container' ng-controller="MainController">
+
+        <pre>data {{data0}}</pre>
+        <pre>data {{data1}}</pre>
+        <pre>data {{data2}}</pre>
+        <pre>data {{data3}}</pre>
+        <pre>data {{data4}}</pre>
+        <pre>data {{data5}}</pre>
+        <table class="table table-bordered" ng-repeat="stream in data0.streams">
+            <tr>
+                <td>{{stream.channel.url}}</td>
+                <td>{{stream.viewers}}</td>
+            </tr>
+        </table>
+        <div id='header'>
+        </div>
+
+        <div id='left'>
+
+        </div>
+
+        <div id='center'>
+        </div>
+
+        <div id='right'>
+        </div>
+
+    </div>
+</body>
+
+</html>

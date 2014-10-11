@@ -1,0 +1,48 @@
+/*
+ * Custom Fonts
+ * The following should not be editted.
+ */
+
+@font-face {
+font-family: 'SansationLight';
+src: url('./SansationLight.eot');
+src: local('SansationLight'), url('./SansationLight.woff') format('woff'), url('./SansationLight.ttf') format('truetype');
+}
+
+@font-face {
+font-family: "Flaticon";
+src: url("flaticon.eot");
+src: url("flaticon.eot#iefix") format("embedded-opentype"),
+url("flaticon.woff") format("woff"),
+url("flaticon.ttf") format("truetype"),
+url("flaticon.svg") format("svg");
+}
+
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_423">Text with this font applied</p> */
+.senlightfont {
+    font-family: 'SansationLight' !important;
+} /* Font downloaded from FontsForWeb.com */
+
+/* The following needs to be called before flaticon can be used. */
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after
+{
+font-family: Flaticon;
+font-size: 23px;
+}
+
+.glyph {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+}
+
+.flaticon-arrowheads3:before {
+content: "\e000";
+}
+.flaticon-right39:before {
+content: "\e001";
+}
+.flaticon-two123:before {
+content: "\e002";
+}
