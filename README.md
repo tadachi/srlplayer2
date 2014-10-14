@@ -2,7 +2,7 @@ srlplayer
 =========
 
 #### Description
-Rewrite of http://srl.takbytes.com . It will reference streams on SRL, Twitch, Hitbox, and Azubu.
+Rewrite of [srlplayer2](https://github.com/tadachi/srlplayer) . It will reference streams on SRL, Twitch, Hitbox, and Azubu.
 
 License: MIT
 
