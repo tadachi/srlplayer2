@@ -1,0 +1,142 @@
+body {
+	font-size: 0;
+	margin: 0;
+	scroll: hidden;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+table {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	background-color: white;
+	border-collapse:collapse;
+}
+
+tbody {
+}
+
+td {
+}
+
+tbody:hover {
+	background-color: gray;
+}
+select {
+	width:100%;
+	font-size: 16px;
+}
+
+#container {
+	width: 100%;
+	height: 100%;
+	font-size: 0;
+	scroll: hidden;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#settings-menu {
+z-index: 2;
+
+font-size: 12px;
+background-color:white;
+color: black;
+font-family: Tahoma, Geneva, sans-serif;
+
+position: absolute;
+display: none;
+}
+
+#header{
+	font-size: medium;
+	background-color: black;
+	position: relative;
+	display: inline-block;
+}
+#left{
+	overflow:scroll;
+	overflow-x:hidden;
+	position: relative;
+	display: inline-block;
+}
+#center {
+	background-color: gray;
+	position: relative;
+	display: inline-block;
+}
+#right {
+	background-color: black;
+	position: relative;
+	display: inline-block;
+}
+
+.header-margin {
+	margin-top: 9px;
+}
+
+.button45 {
+	width: 45px;
+	font-size: 16px;
+}
+
+.button60 {
+	width: 60px;
+	font-size: 16px;
+}
+
+.button130 {
+	width: 130px;
+	font-size: 16px;
+}
+
+.select {
+	width: 130px;
+}
+
+.icon-logo{
+	width: 50px;
+	height: 50px;
+}
+.description{
+	font-size: 12px;
+	color: black;
+	width: 220px; /* Magic width that works perfectly so far */
+}
+
+.viewer-count{
+	font-size: 12px;
+	font-weight: bold;
+	color: red;
+	text-align: right;
+}
+
+.stream-name{
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+}
+
+.stream-service-icon{
+	font-size: 12px;
+	text-align: right;
+}
+
+.styled-select select {
+	background: transparent;
+	background-color: white;
+	border: none;
+	margin-top: 5px;
+	outline: 0;
+}
+
+.semi-square {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.white {
+	background-color: white;
+}

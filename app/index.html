@@ -8,156 +8,110 @@
         <meta name='keywords' content='srlplayer takbytes.com SRL speedrunslive speedrunslive streamer speedrunslivestreamer srlstreamer srlplayer twitch twitchstreamer twitchplayer'>
         <meta name='author' content='takada'>
 
-        <!-- Bootstrap specifics -->
-        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Viewport meta tag -->
-
-        <link rel='stylesheet' href='css/bootstrap.min.css'>
-        <link rel='stylesheet' href='css/bootstrap-theme.min.css'>
-
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <!-- JQuery -->
         <script src='js/jquery-1.11.1.min.js'></script>
-        <!-- <script src='js/jquery-1.11.1.min.map'></script> -->
+        <script src='js/jquery.linkify.min.js'></script>
+        <!-- Misc JS Libs -->
+        <script src='js/async.min.js'></script> <!-- Combined with Jquery, it's used together for asynchronous REST calls. -->
+        <!-- AngularJS -->
         <script src='js/angular.min.js'></script>
-        <script src='js/bootstrap.min.js'></script>
-        <!--// <script src='js/angular.min.js.map'></script>
-        // <script src='js/angular-route.min.js'></script>
-        // <script src='js/angular-route.min.js.map'></script> -->
+        <!-- srlplayer2.js must come after AngularJS and JQuery -->
+        <script src='js/srlplayer2.js'></script>
+
     </head>
 
-    <style>
-        .td-width400{
-            width: 400px;
-        }
-        .icon-logo{
-
-        }
-    </style>
-
-    <script>
-
-    var app = angular.module('srlplayer2', []);
-
-    app.controller('MainController', function($scope, $http) {
-        $scope.data0 = null;
-        $scope.data1 = null;
-        $scope.data2 = null;
-        $scope.data3 = null;
-        $scope.data4 = null;
-        $scope.data5 = null;
-
-        $scope.category = "Speedruns" //Default starts on Speedruns
-
-        /* Stream selector dropdown box */
-        $scope.changeCategory = function(category) {
-            $scope.category = category;
-        };
-
-        $scope.changeShowStreamTable = function(id) {
-            $scope.category = category;
-        };
-
-        /* Populate stream selector tables */
-        $scope.categories = ['Speedruns', 'Starcraft', 'Hearthstone'];
-        $scope.selection = $scope.categories[0]; // Default
-
-        $scope.urls = [ // List of REST api calls with with all the streams we want.
-            'http://sa.tak.com:4001/speedruns?callback=JSON_CALLBACK',
-            'http://sa.tak.com:4001/starcraft?callback=JSON_CALLBACK',
-            'http://sa.tak.com:4001/hearthstone?callback=JSON_CALLBACK',
-            'http://sa.tak.com:4001/dota?callback=JSON_CALLBACK',
-            'http://sa.tak.com:4001/counterstrike?callback=JSON_CALLBACK',
-            'http://sa.tak.com:4001/hitbox?callback=JSON_CALLBACK'
-        ];
-
-        $http.get($scope.urls[0]).success(function(data) { $scope.data0 = angular.fromJson(data); console.log(angular.fromJson(data))} ); // Data returned is JSON. Convert it to Array Object for populating our stream list.
-        $http.get($scope.urls[1]).success(function(data) { $scope.data1 = data} );
-        $http.get($scope.urls[2]).success(function(data) { $scope.data2 = data} );
-        $http.get($scope.urls[3]).success(function(data) { $scope.data3 = data} );
-        $http.get($scope.urls[4]).success(function(data) { $scope.data4 = data} );
-        $http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data))} );
-    });
-
-    </script>
-
 <body ng-app='srlplayer2'>
+    <div id="container" ng-controller="MainController">
+            <div id='settings-menu'>
+                <div style='position: relative; border: 1px solid;'>
+                    <input id='showfollowedtwitchstreams' type='checkbox'>Enable followed twitch streams. Enter <b>twitch</b> username:
+                    <input id='twitchusername' type='text' value=''></input>
+                </div>
 
-    <div id='container' ng-controller="MainController">
+                <button id='apply' style='float: right; margin-top: 20px;' >Apply</button>
+            </div>
 
-        <div class="row make-row">
-            <div class="col-md-2">
-                <select ng-model="selection" ng-options="category for category in categories">{{category}}</select>
-                <!-- <div class="dropdown" ng-model="show">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        {{category}}
-                        <span class="caret"></span>
-                    </button>
+            <div id="header">
+                <button class="button45 white semi-square header-margin"><<</button>
+                <select class="button130 styled-select blue semi-square header-margin" ng-model="selection" ng-options="category for category in categories">{{category}}</select> <!-- Category dropdown/selector box -->
+                <button id='settings' class="button45 white semi-square header-margin" >S</button>
+                <button class="button130 white semi-square header-margin" ng-click="refreshStreams()">Refresh</button>
+                <button class="button45 white semi-square header-margin">>></button>
+            </div>
 
-                    </select>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" id="show-speedruns-streams" ng-click="changeCategory('Speedruns') ; ">Speedruns</a></li>
-                        <li role="presentation"><a role="menuitem" id="show-starcraft-streams" ng-click="category = 'Starcraft' ; ">Starcraft</a></li>
-                        <li role="presentation"><a role="menuitem" id="show-hearthstone-streams" ng-click="category = 'Hearthstone' ; ">Hearthstone</a></li>
-                        <li role="presentation"><a role="menuitem" id="show-dota-streams" ng-click="category = 'Dota'; ">Dota</a></li>
-                    </ul>
-                </div> -->
-                <div ng-switch on="selection">
+            <div id="left">
+                <div ng-switch on="selection"> <!-- Show/hide stream category table -->
                     <div ng-switch-when="Speedruns">
-                        <table id="speedruns" class="table-striped table-hover animate-switch">
-                            <tr>
-                                <th class=" text-center" colspan="3">Speedruns</th>
-                            </tr>
-                            <tr ng-repeat="chan in data0.channels">
-                                <td class=""><img src="{{chan.channel.image.size70}}" width="30px" height="30px"/></td>
-                                <td class="td-width400 text-left">{{chan.channel.display_name}}</td>
-                                <td class="td-width400 text-right">{{chan.channel.current_viewers}}</td>
-                            </tr>
-                        </table>
+                        <div id="speedruns" ng-click="reloadTwitchVideoPlayer(chan.channel.display_name); reloadTwitchChat(chan.channel.display_name)"
+                                ng-repeat="chan in data0.channels" data="{{chan.channel.display_name}}" on-finish-render >
+                            <a href="/#!/{{chan.channel.display_name}}"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2"><img class="icon-logo" src="{{chan.channel.image.size70}}"
+                                                onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                            <td class="stream-name">{{chan.channel.display_name}}</td>
+                                            <td class="viewer-count">{{chan.channel.current_viewers}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="description">{{chan.channel.title}}</td>
+                                            <td class="stream-service-icon">hi</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </a>
+                        </div>
                     </div>
                     <div ng-switch-when="Starcraft">
-                            <table id="dota" class="table-striped table-hover animate-switch">
-                                <tr>
-                                    <th class=" text-center" colspan="3">Starcraft</th>
-                                </tr>
-                                <tr ng-repeat="stream in data1.streams">
-                                    <td class=""><img src="{{stream.channel.logo}}" width="30px" height="30px" /></td>
-                                    <td class="td-width400 text-left">{{stream.channel.display_name}}</td>
-                                    <td class="td-width400 text-right">{{stream.viewers}}</td>
-                                </tr>
-                            </table>
+                        <div id="starcraft" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
+                                ng-repeat="stream in data1.streams" data="{{stream.channel.display_name}}" on-finish-render >
+                            <a href="/#!/{{stream.channel.display_name}}"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="3"><img class="icon-logo" src="{{stream.channel.logo}}"
+                                                onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                            <td class="stream-name">{{stream.channel.display_name}}</td>
+                                            <td class="viewer-count">{{stream.viewers}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="description" colspan="1">{{stream.channel.status}}</td>
+                                            <td class="stream-service-icon">hi</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </a>
+                        </div>
                     </div>
-                    <div ng-switch-when="Hearthstone">
-                        <table id="hearthstone" class="table-striped table-hover animate-switch">
-                            <tr>
-                                <th class=" text-center" colspan="3">Hearthstone</th>
-                            </tr>
-                            <tr ng-repeat="stream in data2.streams">
-                                <!--{{stream.channel.url}}-->
-                                <td class=""><img src="{{stream.channel.logo}}" width="30px" height="30px"/></td>
-                                <td class="td-width400 text-left">{{stream.channel.display_name}}</td>
-                                <td class="td-width400 text-right">{{stream.viewers}}</td>
-                            </tr>
-                        </table>
+                    <div ng-switch-when="Hitbox">
+                        <div id="hitbox" ng-click="reloadHitboxVideoPlayer(stream.user_name); reloadHitboxChat(stream.user_name)"
+                                ng-repeat="stream in data5" data="{{stream.user_name}}" on-finish-render >
+                            <a href="/#!/{{stream.user_name}}"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="3"><img class="icon-logo" src="{{stream.user_logo}}"
+                                                onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                            <td class="stream-name">{{stream.user_name}}</td>
+                                            <td class="viewer-count">{{stream.viewers}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="description" colspan="1">{{stream.status}}</td>
+                                            <td class="stream-service-icon">hi</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </a>
+                        </div>
                     </div>
-                  </div>
-
-
-                <!--
-                <table id="dota" class="table-striped table-hover" ng-show="show-dota-streams">
-                    <tr>
-                        <th class=" text-center" colspan="2">Starcraft</th>
-                    </tr>
-                    <tr ng-repeat="stream in data2.streams">
-                        <td class="td-width400 text-left">{{stream.channel.display_name}}</td>
-                        <td class="td-width400 text-right">{{stream.viewers}}</td>
-                    </tr>
-                </table> -->
+                </div>
             </div>
-            <div class="col-md-8">
 
-            </div>
-            <div class="col-md-2">
-            </div>
-        </div>
+            <div id="center"></div>
 
+            <div id="right"></div>
     </div>
 </body>
 
