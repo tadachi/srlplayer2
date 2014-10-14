@@ -79,12 +79,12 @@ app.controller("MainController", function($scope, $http, $location) {
 	$scope.selection = $scope.categories[0]; // Default
 
 	$scope.urls = [ // List of REST api calls with all the streams we want.
-		"http://sa.tak.com:4001/speedruns?callback=JSON_CALLBACK",
-		"http://sa.tak.com:4001/starcraft?callback=JSON_CALLBACK",
-		"http://sa.tak.com:4001/hearthstone?callback=JSON_CALLBACK",
-		"http://sa.tak.com:4001/dota?callback=JSON_CALLBACK",
-		"http://sa.tak.com:4001/counterstrike?callback=JSON_CALLBACK",
-		"http://sa.tak.com:4001/hitbox?callback=JSON_CALLBACK"
+		"http://api.takbytes.com/speedruns?callback=JSON_CALLBACK",
+		"http://api.takbytes.com/starcraft?callback=JSON_CALLBACK",
+		"http://api.takbytes.com/hearthstone?callback=JSON_CALLBACK",
+		"http://api.takbytes.com/dota?callback=JSON_CALLBACK",
+		"http://api.takbytes.com/counterstrike?callback=JSON_CALLBACK",
+		"http://api.takbytes.com/hitbox?callback=JSON_CALLBACK"
 	];
 
 	$scope.refreshStreams = function() {
