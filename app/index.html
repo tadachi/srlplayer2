@@ -131,7 +131,7 @@
                     <div ng-switch-when="Followed">
                         <div id="followed" ng-click="reloadTwitchVideoPlayer(d.stream.channel.display_name); reloadTwitchChat(d.stream.channel.display_name)"
                                 ng-repeat="d in data7" data="{{d.stream.channel.display_name}}" on-finish-render >
-                            <a href="/#!/{{d.stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                            <a href="/#!/?{{d.stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                                 <table>
                                     <tbody>
                                         <tr>
