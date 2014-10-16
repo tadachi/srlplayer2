@@ -16,11 +16,11 @@ table {
 }
 
 tbody {
-	background-color: gray;
+	background-color: #A8A8A8; /*~gray*/
 }
 
 tbody:hover {
-	background-color: lightgray;
+	background-color: #C8C8C8; /*~lightgray*/;
 }
 select {
 	width:100%;
@@ -50,14 +50,14 @@ display: none;
 
 #header{
 	font-size: medium;
-	background-color: black;
+	background-color: #C8C8C8; /*~lightgray*/;
 	position: relative;
 	display: inline-block;
 }
 #left{
-	background-color: gray;
-	overflow:scroll;
-	overflow-x:hidden;
+	background-color: lightgray;
+	overflow: scroll;
+	overflow-x: hidden;
 	position: relative;
 	display: inline-block;
 	font-family: Tahoma, Geneva, sans-serif;
@@ -68,7 +68,7 @@ display: none;
 	display: inline-block;
 }
 #right {
-	background-color: black;
+	background-color: #A8A8A8; /*~gray*/
 	position: relative;
 	display: inline-block;
 }
@@ -113,14 +113,15 @@ display: none;
 }
 
 .viewer-count {
+	font-size: 14px;
 	color: red;
-	text-align: left;
+	text-align: right;
 }
 
 .stream-name {
 	font-size: 18px;
 	font-weight: bold;
-	color: lightgreen;
+	color: #000066; /*~ darkgreen */
 }
 
 .stream-service-icon{
