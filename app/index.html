@@ -36,7 +36,7 @@
             <div id="header">
                 <button id="toggle-left" class="button45 white semi-square header-margin" onclick="toggleLeft()"><<</button>
                 <select class="button130 styled-select blue semi-square header-margin" ng-model="selection" ng-options="category for category in categories">{{category}}</select> <!-- Category dropdown/selector box -->
-                <button id='settings' class="button45 white semi-square header-margin" >S</button>
+                <button id='settings' class="button45 white semi-square header-margin" >Settings</button>
                 <button class="button130 white semi-square header-margin" ng-click="refreshStreams()">Refresh</button>
                 <button id="toggle-right" class="button45 white semi-square header-margin" onclick="toggleRight()">>></button>
                 <a class="header-item" href="http://mtc.takbytes.com">Multitwitchchat</a>
@@ -58,7 +58,7 @@
                                         </tr>
                                         <tr>
                                             <td class="description">{{chan.channel.title}}</td>
-                                            <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+                                            <!-- <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -79,7 +79,7 @@
                                         </tr>
                                         <tr>
                                             <td class="description" colspan="1">{{stream.channel.status}}</td>
-                                            <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+                                            <!-- <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -100,7 +100,7 @@
                                         </tr>
                                         <tr>
                                             <td class="description" colspan="1">{{stream.channel.status}}</td>
-                                            <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+                                            <!-- <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -121,7 +121,7 @@
                                         </tr>
                                         <tr>
                                             <td class="description" colspan="1">{{stream.status}}</td>
-                                            <td><img class="stream-service-icon" src="http://edge.vie.hitbox.tv/static/img/chat/default/smile5.png"/></td>
+                                            <!-- <td><img class="stream-service-icon" src="http://edge.vie.hitbox.tv/static/img/chat/default/smile5.png"/></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -131,7 +131,7 @@
                     <div ng-switch-when="Followed">
                         <div id="followed" ng-click="reloadTwitchVideoPlayer(d.stream.channel.display_name); reloadTwitchChat(d.stream.channel.display_name)"
                                 ng-repeat="d in data7" data="{{d.stream.channel.display_name}}" on-finish-render >
-                            <a href="/#!/?{{d.stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                            <a href="/#!/?streamer={{d.stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                                 <table>
                                     <tbody>
                                         <tr>
@@ -142,7 +142,7 @@
                                         </tr>
                                         <tr>
                                             <td class="description" colspan="1">{{d.stream.channel.status}}</td>
-                                            <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+                                            <!-- <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td> -->
                                         </tr>
                                     </tbody>
                                 </table>

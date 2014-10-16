@@ -1,8 +1,8 @@
-srlplayer
+srlplayer2
 =========
 
 #### Description
-Rewrite of [srlplayer](https://github.com/tadachi/srlplayer) . It will reference streams on SRL, Twitch, Hitbox, and Azubu.
+Upgrade/Rewrite of [srlplayer](https://github.com/tadachi/srlplayer) . It will reference streams on SRL, Twitch, Hitbox, and Azubu.
 
 License: MIT
 

@@ -91,7 +91,7 @@ app.controller("MainController", function($scope, $http, $location) {
 	$scope.refreshStreams = function() {
 		$http.get($scope.urls[0]).success(function(data) { $scope.data0 = angular.fromJson(data); } ); // Data returned is JSON. Convert it to Array Object for populating our stream list.
 		$http.get($scope.urls[1]).success(function(data) { $scope.data1 = angular.fromJson(data); } );
-		// $http.get($scope.urls[2]).success(function(data) { $scope.data2 = data} );
+		$http.get($scope.urls[2]).success(function(data) { $scope.data2 = angular.fromJson(data)} );
 		// $http.get($scope.urls[3]).success(function(data) { $scope.data3 = data} );
 		// $http.get($scope.urls[4]).success(function(data) { $scope.data4 = data} );
 		$http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data));} ); //console.log(angular.fromJson(data));
@@ -129,7 +129,7 @@ app.controller("MainController", function($scope, $http, $location) {
 	function getOnlyOnlineFollowed(streams, callback) {
 		var asyncTasks = [];
 
-		// Array of streams to see if online.
+		// Array of streams to see if online. Unfortunately you have to get them one at a time.
 		streams.follows.forEach(function(stream) {
 				asyncTasks.push(
 					function(callback) {
@@ -156,7 +156,6 @@ app.controller("MainController", function($scope, $http, $location) {
 			dataType : "jsonp", // tell jQuery we're expecting JSONP.
 
 			success: function(stream) { // work with the response.
-				//console.log(stream);
 				if (stream.stream) {
 					callback(stream);
 				}else {
