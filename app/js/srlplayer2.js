@@ -76,7 +76,7 @@ app.controller("MainController", function($scope, $http, $location) {
 
 	/* Populate stream selector tables */
 	//$scope.categories = ["Speedruns", "Starcraft", "Hearthstone", "Dota", "Counterstrike", "Hitbox", "Azubu", "Followed"];
-	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Followed"];
+	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Counterstrike", "Followed"];
 	$scope.selection = $scope.categories[0]; // Default
 
 	$scope.urls = [ // List of REST api calls with all the streams we want.
@@ -89,12 +89,13 @@ app.controller("MainController", function($scope, $http, $location) {
 	];
 
 	$scope.refreshStreams = function() {
-		$http.get($scope.urls[0]).success(function(data) { $scope.data0 = angular.fromJson(data); } ); // Data returned is JSON. Convert it to Array Object for populating our stream list.
-		$http.get($scope.urls[1]).success(function(data) { $scope.data1 = angular.fromJson(data); } );
-		$http.get($scope.urls[2]).success(function(data) { $scope.data2 = angular.fromJson(data)} );
-		// $http.get($scope.urls[3]).success(function(data) { $scope.data3 = data} );
-		// $http.get($scope.urls[4]).success(function(data) { $scope.data4 = data} );
-		$http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data));} ); //console.log(angular.fromJson(data));
+		$http.get($scope.urls[0]).success(function(data) { console.log(data); $scope.data0 = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
+		$http.get($scope.urls[1]).success(function(data) { console.log(data); $scope.data1 = angular.fromJson(data); });
+		$http.get($scope.urls[2]).success(function(data) { console.log(data); $scope.data2 = angular.fromJson(data); });
+		$http.get($scope.urls[3]).success(function(data) { console.log(data); $scope.data3 = angular.fromJson(data); });
+		$http.get($scope.urls[4]).success(function(data) { console.log(data); $scope.data4 = angular.fromJson(data); });
+		$http.get($scope.urls[5]).success(function(data) { console.log(data); $scope.data5 = angular.fromJson(data); });
+		// $http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data));} ); //console.log(angular.fromJson(data));
 		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { $scope.data7 = data.clean(null);  } ); }// console.log(data.clean(null));
 	}
 
