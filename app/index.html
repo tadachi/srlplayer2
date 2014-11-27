@@ -55,10 +55,10 @@
         <div id="left">
             <div ng-switch on="selection"> <!-- Show/hide stream category table -->
                 <div ng-switch-when="Speedruns">
-                    <div id="speedruns" ng-click="reloadTwitchVideoPlayer(chan.display_name); reloadTwitchChat(chan.display_name)"
+                    <div id="speedruns" ng-click="reloadTwitchVideoPlayer(channel.display_name); reloadTwitchChat(channel.display_name)"
                         ng-repeat="channel in data0._source.channels | orderBy:'current_viewers':true" data="{{channel.display_name}}"
                             ng-if="channel.api=='twitch'" on-finish-render >
-                        <a href="/#!/?streamer={{chan.display_name}}&api=twitch">
+                        <a href="/#!/?streamer={{channel.display_name}}&api=twitch">
                             <table class="table">
                                 <tbody>
                                     <tr>
