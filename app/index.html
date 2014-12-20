@@ -97,27 +97,6 @@
                         </a>
                     </div>
                 </div>
-                <div ng-switch-when="Hitbox">
-                    <div id="hitbox" ng-click="reloadHitboxVideoPlayer(stream.user_name); reloadHitboxChat(stream.user_name)"
-                            ng-repeat="stream in data5" data="{{stream.user_name}}" on-finish-render >
-                        <a href="/#!/?streamer={{stream.user_name}}&api=hitbox"> <!-- wrap it in <a> so we can open in new tab, etc -->
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="3"><img class="icon-logo" src="{{stream.user_logo}}"
-                                            onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
-                                        <td class="stream-name">{{stream.user_name}}</td>
-                                        <td class="viewer-count">{{stream.viewers}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="description" colspan="1">{{stream.status}}</td>
-                                        <td><img class="stream-service-icon" src="http://edge.vie.hitbox.tv/static/img/chat/default/smile5.png"/></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </a>
-                    </div>
-                </div>
                 <div ng-switch-when="Hearthstone">
                     <div id="hearthstone" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in data2.streams" data="{{stream.channel.display_name}}" on-finish-render>
@@ -139,9 +118,72 @@
                         </a>
                     </div>
                 </div>
+			    <div ng-switch-when="Dota">
+                    <div id="dota" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
+                            ng-repeat="stream in data3.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="3"><img class="icon-logo" src="{{stream.channel.logo}}"
+                                            onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                        <td class="stream-name">{{stream.channel.display_name}}</td>
+                                        <td class="viewer-count">{{stream.viewers}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="description" colspan="1">{{stream.channel.status}}</td>
+                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
                 <div ng-switch-when="Counterstrike">
-                    <div id="hearthstone" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
+                    <div id="counterstrike" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in data4.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="3"><img class="icon-logo" src="{{stream.channel.logo}}"
+                                            onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                        <td class="stream-name">{{stream.channel.display_name}}</td>
+                                        <td class="viewer-count">{{stream.viewers}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="description" colspan="1">{{stream.channel.status}}</td>
+                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+			    <div ng-switch-when="Hitbox">
+                    <div id="hitbox" ng-click="reloadHitboxVideoPlayer(stream.user_name); reloadHitboxChat(stream.user_name)"
+                            ng-repeat="stream in data5" data="{{stream.user_name}}" on-finish-render >
+                        <a href="/#!/?streamer={{stream.user_name}}&api=hitbox"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="3"><img class="icon-logo" src="{{stream.user_logo}}"
+                                            onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                        <td class="stream-name">{{stream.user_name}}</td>
+                                        <td class="viewer-count">{{stream.viewers}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="description" colspan="1">{{stream.status}}</td>
+                                        <td><img class="stream-service-icon" src="http://edge.vie.hitbox.tv/static/img/chat/default/smile5.png"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+				<div ng-switch-when="LeagueOfLegends">
+                    <div id="league" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
+                            ng-repeat="stream in data6.streams" data="{{stream.channel.display_name}}" on-finish-render>
                         <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
