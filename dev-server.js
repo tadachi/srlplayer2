@@ -28,8 +28,8 @@ home.use('/test', express.static(__dirname + '/app/test'));
 
 home.set('jsonp callback', true);
 
-// var hostname = 'srl.tak.com'; // Replace this with your own hostname.
-var hostname = 'localhost'; // Replace this with your own hostname.
+var hostname = 'srl.tak.com'; // Replace this with your own hostname.
+// var hostname = 'localhost'; // Replace this with your own hostname.
 app.use(vhost(hostname, home));
 
 home.get('/', function(req, res) {

@@ -62,7 +62,7 @@ Array.prototype.clean = function(deleteValue) {
 
 var app = angular.module("srlplayer2", []);
 
-app.controller("MainController", function($scope, $http, $location) {
+app.controller("MainController", function($scope, $http, $location, $interval) {
 	$scope.data0 = null;
 	$scope.data1 = null;
 	$scope.data2 = null;
@@ -88,7 +88,7 @@ app.controller("MainController", function($scope, $http, $location) {
 		"http://api.takbytes.com/hitbox",
 		"http://api.takbytes.com/league"
 	];
-
+	
 	$scope.refreshStreams = function() {
 		$http.get($scope.urls[0]).success(function(data) { console.log(data); $scope.data0 = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
 		$http.get($scope.urls[1]).success(function(data) { console.log(data); $scope.data1 = angular.fromJson(data); });
@@ -98,14 +98,18 @@ app.controller("MainController", function($scope, $http, $location) {
 		$http.get($scope.urls[5]).success(function(data) { console.log(data); $scope.data5 = angular.fromJson(data); });
 		$http.get($scope.urls[6]).success(function(data) { console.log(data); $scope.data6 = angular.fromJson(data); });
 		// $http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data));} ); //console.log(angular.fromJson(data));
-		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { $scope.data7 = data.clean(null);  } ); }// console.log(data.clean(null));
+		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.data7 = data.clean(null);  } ); }// console.log(data.clean(null));
+		console.log("REFRESHED");
 	}
 
+
+	
 	function loadStreams(callback) {
 		twitch_username = localStorage.getItem("twitch-username"); // Used for getting all streams that twitch user follows
 
 		getAllFollowedStreams(twitch_username, function(results) {
 			callback(results);
+			console.log("LOADSTREAMS");
 		});
 	}
 
@@ -183,10 +187,11 @@ app.controller("MainController", function($scope, $http, $location) {
 						"width='{w}'".format({ w: center.w }),
 						"height='{h}'>".format({ h: center.h }),
 						"<param name='movie' value='http://www.twitch.tv/widgets/archive_embed_player.swf' />",
-						"<param name='allowScriptAccess' value='always' />",
+						"<param name='allowScriptAccess' value='sameDomain' />",
 						"<param name='allowNetworking' value='all' />",
 						"<param name='allowFullScreen' value='true' />",
 						"<param name='flashvars' value='{flashvars}'/>".format({flashvars: flashvars}),
+						
 					"</object>"
 					].join("");
 
@@ -258,6 +263,14 @@ app.controller("MainController", function($scope, $http, $location) {
 	/* AngularJS Main */
 	$scope.refreshStreams();
 
+	
+	$interval(function(){
+		$scope.refreshStreams();
+		//$scope.loadStreams();
+		loadStreams();
+	},120000);
+	
+	
 	/* On Refresh */
 	var streamer = getQueryStringParams("streamer");
 	var api = getQueryStringParams("api");
@@ -454,7 +467,7 @@ $( document ).ready(function() {
 	$("#settings").click(function() { //Show the settingsmenu div on click.
 		$("#settings-menu").toggle();
 	})
-
+	
 	if( localStorage.getItem("twitch-username") ) {
 		$("#twitch-username").val(localStorage.getItem("twitch-username"));
 		$("#show-followed-twitch-streams").prop("checked", true); // Checkbox is checked.
