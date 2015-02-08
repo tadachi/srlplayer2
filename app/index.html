@@ -69,7 +69,6 @@
                                     </tr>
                                     <tr>
                                         <td class="description">{{channel.title}}</td>
-                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -111,7 +110,6 @@
                                     </tr>
                                     <tr>
                                         <td class="description" colspan="1">{{stream.channel.status}}</td>
-                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -153,7 +151,6 @@
                                     </tr>
                                     <tr>
                                         <td class="description" colspan="1">{{stream.channel.status}}</td>
-                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -174,7 +171,6 @@
                                     </tr>
                                     <tr>
                                         <td class="description" colspan="1">{{stream.status}}</td>
-                                        <td><img class="stream-service-icon" src="http://edge.vie.hitbox.tv/static/img/chat/default/smile5.png"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -195,7 +191,7 @@
                                     </tr>
                                     <tr>
                                         <td class="description" colspan="1">{{stream.channel.status}}</td>
-                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -216,7 +212,6 @@
                                     </tr>
                                     <tr>
                                         <td class="description" colspan="1">{{d.stream.channel.status}}</td>
-                                        <td><img class="stream-service-icon" src="http://static-cdn.jtvnw.net/jtv_user_pictures/emoticon-2867-src-f02f9d40f66f0840-28x28.png"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -226,7 +221,20 @@
             </div>
         </div>
 
-        <div id="center"></div>
+        <div id="center">
+				<object type="application/x-shockwave-flash" 
+				height="378" 
+				width="620" 
+				id="video" 
+				data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=WitWix" 
+				bgcolor="#000000">
+				<param name="allowFullScreen" value="true" />
+				<param name="allowScriptAccess" value="sameDomain" />
+				<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+				<param name="allowNetworking" value="all" />
+				<param name="flashvars" value="hostname=www.twitch.tv&channel=WitWix&auto_play=true&start_volume=25" />
+			</object>
+		</div>
 
         <div id="right"></div>
     </div>

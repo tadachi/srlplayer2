@@ -176,25 +176,38 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 	$scope.reloadTwitchVideoPlayer = function(streamername) {
 		center = calcCenter();
 
+
+		/* Flash Video Example.
+			<object type="application/x-shockwave-flash" 
+				height="378" 
+				width="620" 
+				id="video" 
+				data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=XeroKynos" 
+				bgcolor="#000000">
+				<param name="allowFullScreen" value="true" />
+				<param name="allowScriptAccess" value="always" />
+				<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+				<param name="allowNetworking" value="all" />
+				<param name="flashvars" value="hostname=www.twitch.tv&channel=hebo&auto_play=true&start_volume=25" />
+			</object>
+		*/			
 		// Create the channel string based on chosen stream.
-		flashvars = "channel={CHANNEL}&auto_play=true".format({
+		flashvars = "hostname=www.twitch.tv&channel={CHANNEL}&auto_play=true&start_volume=20".format({
 			CHANNEL: streamername});
-
-		html =    ["<object bgcolor='#000000'",
-						"id='video'",
-						"data='http://www.twitch.tv/widgets/archive_embed_player.swf'",
-						"type='application/x-shockwave-flash'",
+		html =    ["<object type='application/x-shockwave-flash'",
 						"width='{w}'".format({ w: center.w }),
-						"height='{h}'>".format({ h: center.h }),
-						"<param name='movie' value='http://www.twitch.tv/widgets/archive_embed_player.swf' />",
-						"<param name='allowScriptAccess' value='sameDomain' />",
-						"<param name='allowNetworking' value='all' />",
+						"height='{h}'".format({ h: center.h }),
+						"id='video'",
+						"data='http://www.twitch.tv/widgets/live_embed_player.swf?channel={CHANNEL}'".format({CHANNEL: streamername}),
+						"bgcolor='#000000'>",
+						"<param name='movie' value='http://www.twitch.tv/widgets/live_embed_player.swf' />",
 						"<param name='allowFullScreen' value='true' />",
+						"<param name='allowScriptAccess' value='always' />",
+						"<param name='allowNetworking' value='all' />",
 						"<param name='flashvars' value='{flashvars}'/>".format({flashvars: flashvars}),
-						
 					"</object>"
-					].join("");
-
+					].join(" ");
+		console.log(html);
 		$("#center").html(html);
 	}
 
