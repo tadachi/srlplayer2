@@ -178,12 +178,15 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 
 
 		/* Flash Video Example.
+         flashvars = "hostname=www.twitch.tv&channel={CHANNEL}&auto_play=true&start_volume=20".format({
+         CHANNEL: streamername});
+
 			<object type="application/x-shockwave-flash" 
 				height="378" 
 				width="620" 
 				id="video" 
 				data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=XeroKynos" 
-				bgcolor="#000000">
+				bgcolor="#D3D3D3">
 				<param name="allowFullScreen" value="true" />
 				<param name="allowScriptAccess" value="always" />
 				<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
@@ -191,7 +194,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 				<param name="flashvars" value="hostname=www.twitch.tv&channel=hebo&auto_play=true&start_volume=25" />
 			</object>
 		*/			
-		// Create the channel string based on chosen stream.
+		// Alternative Flash example.
 		flashvars = "hostname=www.twitch.tv&channel={CHANNEL}&auto_play=true&start_volume=20".format({
 			CHANNEL: streamername});
 		html =    ["<object type='application/x-shockwave-flash'",
@@ -199,7 +202,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 						"height='{h}'".format({ h: center.h }),
 						"id='video'",
 						"data='http://www.twitch.tv/widgets/live_embed_player.swf?channel={CHANNEL}'".format({CHANNEL: streamername}),
-						"bgcolor='#000000'>",
+						"bgcolor='#D3D3D3'>",
 						"<param name='movie' value='http://www.twitch.tv/widgets/live_embed_player.swf' />",
 						"<param name='allowFullScreen' value='true' />",
 						"<param name='allowScriptAccess' value='always' />",
@@ -207,8 +210,20 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 						"<param name='flashvars' value='{flashvars}'/>".format({flashvars: flashvars}),
 					"</object>"
 					].join(" ");
-		console.log(html);
-		$("#center").html(html);
+        // Embed example.
+        //src = 'http://www.twitch.tv/{CHANNEL}/embed'.format({
+         //   CHANNEL: streamername});
+
+        //html =    ['<iframe ',
+        //            'id="video" ',
+        //            'frameborder="0" ',
+        //            'scrolling="no" ',
+        //            'src="{src}" '.format({src: src}),
+        //            'width="{w}" '.format({w: center.w}),
+        //            'height="{h}"'.format({h: center.h}),
+        //            '>',
+        //            '</iframe>'].join("");
+        $("#center").html(html);
 	}
 
 	$scope.reloadTwitchChat = function(streamername) {
