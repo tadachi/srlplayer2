@@ -1,7 +1,7 @@
-/*
-* Similar to what you find in Java"s format.
-* Usage: chatsrc = "http://twitch.tv/chat/embed?channel={channel}&amp;popout_chat=true".format({ channel: streamer});
-*/
+/**
+ * Similar to what you find in Java"s format.
+ * Usage: chatsrc = "http://twitch.tv/chat/embed?channel={channel}&amp;popout_chat=true".format({ channel: streamer});
+ */
 if (!String.prototype.format) {
 	String.prototype.format = function() {
 		var str = this.toString();
@@ -15,13 +15,16 @@ if (!String.prototype.format) {
 	}
 }
 
-/*
-* Parses the URL for querystring params.
-* Example usage:
-*   url = "http://dummy.com/?technology=jquery&blog=jquerybyexample".
-*   var tech = getQueryStringParams("technology"); //outputs: "jquery"
-*   var blog = getQueryStringParams("blog");       //outputs: "jquerybyexample"
-*/
+/**
+ * Parses the URL for querystring params.
+ * Example usage:
+ * url = "http://dummy.com/?technology=jquery&blog=jquerybyexample".
+ * var tech = getQueryStringParams("technology"); //outputs: "jquery"
+ * var blog = getQueryStringParams("blog");       //outputs: "jquerybyexample"
+ *
+ * @param sParam
+ * @returns {*}
+ */
 function getQueryStringParams(sParam) {
 	var sPageURL      = window.location.href;
 	var sURLVariables = sPageURL.split("/");
@@ -50,6 +53,12 @@ function getQueryStringParams(sParam) {
 	return null;
 }
 
+/**
+ * Remove empty elements from array.
+ *
+ * @param deleteValue
+ * @returns {Array}
+ */
 Array.prototype.clean = function(deleteValue) {
 	for (var i = 0; i < this.length; i++) {
 		if (this[i] == deleteValue) {
@@ -99,7 +108,6 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		$http.get($scope.urls[6]).success(function(data) { console.log(data); $scope.data6 = angular.fromJson(data); });
 		// $http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data));} ); //console.log(angular.fromJson(data));
 		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.data7 = data.clean(null);  } ); }// console.log(data.clean(null));
-		console.log("REFRESHED");
 	}
 
 
@@ -109,10 +117,15 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 
 		getAllFollowedStreams(twitch_username, function(results) {
 			callback(results);
-			console.log("LOADSTREAMS");
 		});
 	}
 
+    /**
+     * Gets all followed streams. 1st step of series of callbacks.
+     *
+     * @param name
+     * @param callback
+     */
 	function getAllFollowedStreams(name, callback) {
 		var offset     = 0; // get the next 25 people if you follow more than 25 people so increase offset by 25.
 		var limit      = 200;
@@ -133,6 +146,14 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		});
 	}
 
+    /**
+     * Gets all followed streams.
+     * Gets only those that are online.
+     * 2st step of series of callbacks.
+     *
+     * @param name
+     * @param callback
+     */
 	function getOnlyOnlineFollowed(streams, callback) {
 		var asyncTasks = [];
 
@@ -154,6 +175,14 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		});
 	}
 
+    /**
+     * Gets all followed streams.
+     * Gets only those that are online.
+     * last step of series of callbacks.
+     *
+     * @param name
+     * @param callback
+     */
 	function isStreamOnline(streamname, callback) {
 		$.ajax({
 			url      : "https://api.twitch.tv/kraken/streams/" + streamname,
@@ -172,7 +201,11 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		});
 	}
 
-	/* Reinjects HTML with the twitch embed pointing to the stream. */
+    /**
+     * Reinjects HTML with the twitch video embed pointing to the stream.
+     *
+     * @param streamername
+     */
 	$scope.reloadTwitchVideoPlayer = function(streamername) {
 		center = calcCenter();
 
@@ -210,7 +243,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 						"<param name='flashvars' value='{flashvars}'/>".format({flashvars: flashvars}),
 					"</object>"
 					].join(" ");
-        // Embed example.
+        // Iframe Embed example.
         //src = 'http://www.twitch.tv/{CHANNEL}/embed'.format({
          //   CHANNEL: streamername});
 
@@ -223,9 +256,16 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
         //            'height="{h}"'.format({h: center.h}),
         //            '>',
         //            '</iframe>'].join("");
+
+        // Set #center to the video embed html code.
         $("#center").html(html);
 	}
 
+    /**
+     * Reinjects HTML with the twitch chat embed pointing to the stream.
+     *
+     * @param streamername
+     */
 	$scope.reloadTwitchChat = function(streamername) {
 		right = calcRight();
 
@@ -245,7 +285,12 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		$("#right").html(html);
 	}
 
-	/* Reinjects HTML with the hitbox embed pointing to the stream. */
+    /**
+     *
+     * Reinjects HTML with the hitbox embed pointing to the stream.
+     *
+     * @param streamername
+     */
 	$scope.reloadHitboxVideoPlayer = function(streamername) {
 		center = calcCenter();
 
@@ -266,6 +311,11 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		$("#center").html(html);
 	}
 
+    /**
+     * Reinjects HTML with the hitbox embed pointing to the stream.
+     *
+     * @param streamername
+     */
 	$scope.reloadHitboxChat = function(streamername) {
 		right = calcRight();
 
@@ -288,10 +338,9 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		$(".description").linkify();
 	});
 
-	/* AngularJS Main */
+	/************** AngularJS Main **************/
 	$scope.refreshStreams();
 
-	
 	$interval(function(){
 		$scope.refreshStreams();
 		//$scope.loadStreams();
@@ -330,7 +379,7 @@ app.directive("onFinishRender", function ($timeout) {
 	}
 });
 
-/* Resolutions */
+/************** Resolutions **************/
 function calcContainer() {
 	containerWidth = $(window).width();
 	containerHeight = $(window).height();
@@ -422,7 +471,10 @@ function applyResolutions() {
 }
 
 
-/* Resize */
+/************** Resize **************/
+/**
+ * Resize video player using Resolution subroutines.
+ */
 function maximizeVideoPlayerResolution() {
 	if (leftShow && !rightShow) { //Right is hidden so expand the videoplayer.
 		$('#left').css('width', left.w);
@@ -448,6 +500,9 @@ function maximizeVideoPlayerResolution() {
 	}
 }
 
+/**
+ * Toggle #left div that enumerates list of streams.
+ */
 function toggleLeft() {
 	container = calcContainer();
 	center    = calcCenter();
@@ -464,6 +519,9 @@ function toggleLeft() {
 	}
 }
 
+/**
+ * Toggle #left div that shows the stream chat.
+ */
 function toggleRight() {
 	container = calcContainer();
 	center    = calcCenter();
@@ -480,10 +538,11 @@ function toggleRight() {
 	}
 }
 
+// By default show the left and right divs.
 var leftShow = true;
 var rightShow = true;
 
-/* JQuery Main */
+/************  JQuery Main ************/
 $( window ).resize(function() {
 	applyResolutions();
 });
@@ -491,7 +550,7 @@ $( window ).resize(function() {
 $( document ).ready(function() {
 	applyResolutions();
 
-	/*** Manage settings with session/localstorage ***/
+	/************ Manage settings with session/localstorage ************/
 	$("#settings").click(function() { //Show the settingsmenu div on click.
 		$("#settings-menu").toggle();
 	})
