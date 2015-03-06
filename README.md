@@ -50,17 +50,15 @@ Somefeatures/bugfixes I want to implement in the future:
 ###### Bugs that need to be fixed:
 * Find a fix for clicking on stream and redirect window directly to twitch instead of opening a new tab.
 
-###### Simple features:
+###### Simple features to implement:
 * Add setting where you can change default selected category for dropdown box.
 * Use graphic buttons, dropdown boxes, better fonts instead of default HTML.
 * Add a login option to twitch instead of going to http://www.twitch.tv to login and going back to srlplayer2.
 * Better color scheme. I picked grey because it is easy on the eyes but it is very ugly.
 * Add setting to change color scheme.
 * More game categories
-
-###### Medium features:
 * open new tab to see profile of streamer that you're watching.
 
-###### Complex features:
+###### Complex features to implement:
 * Alternative twitch chat client to its iframe flash-based one. (Very unlikely)
 * Ability to star/favorite streams so that they appear on the top for that category for that user (Session-based and/or param-based).
