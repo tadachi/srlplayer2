@@ -45,7 +45,7 @@ Raise an issue if you see one.
 #### Pull Requests
 
 Please don't hesitate to do a pull request. On anything.
-Somefeatures/bugfixes I want to implement in the future:
+Some features/bugfixes I want to implement in the future:
 
 ###### Bugs that need to be fixed:
 * Find a fix for clicking on stream and redirect window directly to twitch instead of opening a new tab.
