@@ -72,20 +72,21 @@ Array.prototype.clean = function(deleteValue) {
 var app = angular.module("srlplayer2", []);
 
 app.controller("MainController", function($scope, $http, $location, $interval) {
-	$scope.data0 = null;
-	$scope.data1 = null;
-	$scope.data2 = null;
-	$scope.data3 = null;
-	$scope.data4 = null;
-	$scope.data5 = null;
-	$scope.data6 = null;
-	$scope.data7 = null;
+	$scope.speedruns = null;
+	$scope.starcraft = null;
+	$scope.hearthstone = null;
+	$scope.dota = null;
+	$scope.counterstrike = null;
+	$scope.hitbox = null;
+	$scope.league = null;
+	$scope.heroes = null;
+    $scope.followed = null;
 
 	$scope.category = "Speedruns" //Default starts on Speedruns
 
 	/* Populate stream selector tables */
 	//$scope.categories = ["Speedruns", "Starcraft", "Hearthstone", "Dota", "Counterstrike", "Hitbox", "Azubu", "Followed"];
-	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Followed"];
+	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Heroes", "Followed"];
 	$scope.selection = $scope.categories[0]; // Default
 
 	$scope.urls = [ // List of REST api calls with all the streams we want.
@@ -95,23 +96,22 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		"http://api.takbytes.com/dota",
 		"http://api.takbytes.com/counterstrike",
 		"http://api.takbytes.com/hitbox",
-		"http://api.takbytes.com/league"
+		"http://api.takbytes.com/league",
+        "http://api.takbytes.com/heroes"
 	];
 	
 	$scope.refreshStreams = function() {
-		$http.get($scope.urls[0]).success(function(data) { console.log(data); $scope.data0 = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
-		$http.get($scope.urls[1]).success(function(data) { console.log(data); $scope.data1 = angular.fromJson(data); });
-		$http.get($scope.urls[2]).success(function(data) { console.log(data); $scope.data2 = angular.fromJson(data); });
-		$http.get($scope.urls[3]).success(function(data) { console.log(data); $scope.data3 = angular.fromJson(data); });
-		$http.get($scope.urls[4]).success(function(data) { console.log(data); $scope.data4 = angular.fromJson(data); });
-		$http.get($scope.urls[5]).success(function(data) { console.log(data); $scope.data5 = angular.fromJson(data); });
-		$http.get($scope.urls[6]).success(function(data) { console.log(data); $scope.data6 = angular.fromJson(data); });
-		// $http.get($scope.urls[5]).success(function(data) { $scope.data5 = angular.fromJson(data); console.log(angular.fromJson(data));} ); //console.log(angular.fromJson(data));
-		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.data7 = data.clean(null);  } ); }// console.log(data.clean(null));
+		$http.get($scope.urls[0]).success(function(data) { console.log(data); $scope.speedruns = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
+		$http.get($scope.urls[1]).success(function(data) { console.log(data); $scope.starcraft = angular.fromJson(data); });
+		$http.get($scope.urls[2]).success(function(data) { console.log(data); $scope.hearthstone = angular.fromJson(data); });
+		$http.get($scope.urls[3]).success(function(data) { console.log(data); $scope.dota = angular.fromJson(data); });
+		$http.get($scope.urls[4]).success(function(data) { console.log(data); $scope.counterstrike = angular.fromJson(data); });
+		$http.get($scope.urls[5]).success(function(data) { console.log(data); $scope.hitbox = angular.fromJson(data); });
+		$http.get($scope.urls[6]).success(function(data) { console.log(data); $scope.league = angular.fromJson(data); });
+        $http.get($scope.urls[7]).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
+		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.followed = data.clean(null);  } ); }// console.log(data.clean(null));
 	}
 
-
-	
 	function loadStreams(callback) {
 		twitch_username = localStorage.getItem("twitch-username"); // Used for getting all streams that twitch user follows
 

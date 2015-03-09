@@ -56,7 +56,7 @@
             <div ng-switch on="selection"> <!-- Show/hide stream category table -->
                 <div ng-switch-when="Speedruns">
                     <div id="speedruns" ng-click="reloadTwitchVideoPlayer(channel.display_name); reloadTwitchChat(channel.display_name)"
-                        ng-repeat="channel in data0._source.channels | orderBy:'current_viewers':true" data="{{channel.display_name}}"
+                        ng-repeat="channel in speedruns._source.channels | orderBy:'current_viewers':true" data="{{channel.display_name}}"
                             ng-if="channel.api=='twitch'" on-finish-render >
                         <a href="/#!/?streamer={{channel.display_name}}&api=twitch">
                             <table class="table">
@@ -78,7 +78,7 @@
                 </div>
                 <div ng-switch-when="Starcraft">
                     <div id="starcraft" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
-                            ng-repeat="stream in data1.streams" data="{{stream.channel.display_name}}" on-finish-render >
+                            ng-repeat="stream in starcraft.streams" data="{{stream.channel.display_name}}" on-finish-render >
                         <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
@@ -99,7 +99,7 @@
                 </div>
                 <div ng-switch-when="Hearthstone">
                     <div id="hearthstone" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
-                            ng-repeat="stream in data2.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                            ng-repeat="stream in hearthstone.streams" data="{{stream.channel.display_name}}" on-finish-render>
                         <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
@@ -120,7 +120,7 @@
                 </div>
 			    <div ng-switch-when="Dota">
                     <div id="dota" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
-                            ng-repeat="stream in data3.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                            ng-repeat="stream in dota.streams" data="{{stream.channel.display_name}}" on-finish-render>
                         <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
@@ -141,7 +141,7 @@
                 </div>
                 <div ng-switch-when="Counterstrike">
                     <div id="counterstrike" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
-                            ng-repeat="stream in data4.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                            ng-repeat="stream in counterstrike.streams" data="{{stream.channel.display_name}}" on-finish-render>
                         <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
@@ -162,7 +162,7 @@
                 </div>
 			    <div ng-switch-when="Hitbox">
                     <div id="hitbox" ng-click="reloadHitboxVideoPlayer(stream.user_name); reloadHitboxChat(stream.user_name)"
-                            ng-repeat="stream in data5" data="{{stream.user_name}}" on-finish-render >
+                            ng-repeat="stream in hitbox" data="{{stream.user_name}}" on-finish-render >
                         <a href="/#!/?streamer={{stream.user_name}}&api=hitbox"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
@@ -183,7 +183,7 @@
                 </div>
 				<div ng-switch-when="LeagueOfLegends">
                     <div id="league" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
-                            ng-repeat="stream in data6.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                            ng-repeat="stream in league.streams" data="{{stream.channel.display_name}}" on-finish-render>
                         <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
@@ -202,9 +202,30 @@
                         </a>
                     </div>
                 </div>
+                <div ng-switch-when="Heroes">
+                    <div id="heroes" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
+                         ng-repeat="stream in heroes.streams" data="{{stream.channel.display_name}}" on-finish-render>
+                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td rowspan="3"><img class="icon-logo" src="{{stream.channel.logo}}"
+                                                         onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                    <td class="stream-name">{{stream.channel.display_name}}</td>
+                                    <td class="viewer-count">{{stream.viewers}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="description" colspan="1">{{stream.channel.status}}</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
                 <div ng-switch-when="Followed">
                     <div id="followed" ng-click="reloadTwitchVideoPlayer(d.stream.channel.display_name); reloadTwitchChat(d.stream.channel.display_name)"
-                            ng-repeat="d in data7" data="{{d.stream.channel.display_name}}" on-finish-render >
+                            ng-repeat="d in followed" data="{{d.stream.channel.display_name}}" on-finish-render >
                         <a href="/#!/?streamer={{d.stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
