@@ -72,6 +72,7 @@ Array.prototype.clean = function(deleteValue) {
 var app = angular.module("srlplayer2", []);
 
 app.controller("MainController", function($scope, $http, $location, $interval) {
+    // This will hold our Json data.
 	$scope.speedruns = null;
 	$scope.starcraft = null;
 	$scope.hearthstone = null;
@@ -80,13 +81,14 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 	$scope.hitbox = null;
 	$scope.league = null;
 	$scope.heroes = null;
+    $scope.diablo = null;
     $scope.followed = null;
 
 	$scope.category = "Speedruns" //Default starts on Speedruns
 
 	/* Populate stream selector tables */
 	//$scope.categories = ["Speedruns", "Starcraft", "Hearthstone", "Dota", "Counterstrike", "Hitbox", "Azubu", "Followed"];
-	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Heroes", "Followed"];
+	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Heroes", "Diablo", "Followed"];
 	$scope.selection = $scope.categories[0]; // Default
 
 	$scope.urls = [ // List of REST api calls with all the streams we want.
@@ -97,18 +99,34 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		"http://api.takbytes.com/counterstrike",
 		"http://api.takbytes.com/hitbox",
 		"http://api.takbytes.com/league",
-        "http://api.takbytes.com/heroes"
+        "http://api.takbytes.com/heroes",
+        "http://api.takbytes.com/diablo"
 	];
+
+    $scope.urls = {
+        speedruns: "http://api.takbytes.com/speedruns",
+        starcraft: "http://api.takbytes.com/starcraft",
+        hearthstone: "http://api.takbytes.com/hearthstone",
+        dota: "http://api.takbytes.com/dota",
+        counterstrike: "http://api.takbytes.com/counterstrike",
+        hitbox: "http://api.takbytes.com/hitbox",
+        league: "http://api.takbytes.com/league",
+        heroes: "http://api.takbytes.com/heroes",
+        diablo: "http://api.takbytes.com/diablo"
+
+    };
+
 	
 	$scope.refreshStreams = function() {
-		$http.get($scope.urls[0]).success(function(data) { console.log(data); $scope.speedruns = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
-		$http.get($scope.urls[1]).success(function(data) { console.log(data); $scope.starcraft = angular.fromJson(data); });
-		$http.get($scope.urls[2]).success(function(data) { console.log(data); $scope.hearthstone = angular.fromJson(data); });
-		$http.get($scope.urls[3]).success(function(data) { console.log(data); $scope.dota = angular.fromJson(data); });
-		$http.get($scope.urls[4]).success(function(data) { console.log(data); $scope.counterstrike = angular.fromJson(data); });
-		$http.get($scope.urls[5]).success(function(data) { console.log(data); $scope.hitbox = angular.fromJson(data); });
-		$http.get($scope.urls[6]).success(function(data) { console.log(data); $scope.league = angular.fromJson(data); });
-        $http.get($scope.urls[7]).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
+		$http.get($scope.urls.speedruns).success(function(data) { console.log(data); $scope.speedruns = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
+		$http.get($scope.urls.starcraft).success(function(data) { console.log(data); $scope.starcraft = angular.fromJson(data); });
+		$http.get($scope.urls.hearthstone).success(function(data) { console.log(data); $scope.hearthstone = angular.fromJson(data); });
+		$http.get($scope.urls.dota).success(function(data) { console.log(data); $scope.dota = angular.fromJson(data); });
+		$http.get($scope.urls.counterstrike).success(function(data) { console.log(data); $scope.counterstrike = angular.fromJson(data); });
+		$http.get($scope.urls.hitbox).success(function(data) { console.log(data); $scope.hitbox = angular.fromJson(data); });
+		$http.get($scope.urls.league).success(function(data) { console.log(data); $scope.league = angular.fromJson(data); });
+        $http.get($scope.urls.heroes).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
+        $http.get($scope.urls.diablo).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
 		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.followed = data.clean(null);  } ); }// console.log(data.clean(null));
 	}
 
