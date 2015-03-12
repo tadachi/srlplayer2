@@ -126,7 +126,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		$http.get($scope.urls.hitbox).success(function(data) { console.log(data); $scope.hitbox = angular.fromJson(data); });
 		$http.get($scope.urls.league).success(function(data) { console.log(data); $scope.league = angular.fromJson(data); });
         $http.get($scope.urls.heroes).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
-        $http.get($scope.urls.diablo).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
+        $http.get($scope.urls.diablo).success(function(data) { console.log(data); $scope.diablo = angular.fromJson(data); });
 		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.followed = data.clean(null);  } ); }// console.log(data.clean(null));
 	}
 
