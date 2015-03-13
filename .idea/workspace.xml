@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4d38e8f0-25d5-40d4-bc5f-8bfaf359d4b7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/srlplayer2.js" afterPath="$PROJECT_DIR$/app/js/srlplayer2.js" />
     </list>
     <ignored path="srlplayer2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.6545453" vertical-offset="3081" max-vertical-offset="4828">
-              <caret line="206" column="52" selection-start-line="206" selection-start-column="46" selection-end-line="206" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.6455696" vertical-offset="0" max-vertical-offset="4845">
+              <caret line="48" column="75" selection-start-line="48" selection-start-column="75" selection-end-line="48" selection-end-column="75" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -72,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="srlplayer2.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="srlplayer2.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/js/srlplayer2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.75503874" vertical-offset="1151" max-vertical-offset="10166">
-              <caret line="128" column="114" selection-start-line="128" selection-start-column="114" selection-end-line="128" selection-end-column="114" />
+            <state vertical-scroll-proportion="-9.551724" vertical-offset="1406" max-vertical-offset="10166">
+              <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -92,8 +91,8 @@
       <list>
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/js/srlplayer2.js" />
+        <option value="$PROJECT_DIR$/app/index.html" />
       </list>
     </option>
   </component>
@@ -263,7 +262,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2514" height="1456" extended-state="6" />
+    <frame x="-8" y="-8" width="2514" height="1456" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -657,21 +656,21 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.html">
+    <entry file="file://$PROJECT_DIR$/app/js/srlplayer2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.6545453" vertical-offset="3081" max-vertical-offset="4828">
-          <caret line="206" column="52" selection-start-line="206" selection-start-column="46" selection-end-line="206" selection-end-column="52" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-9.551724" vertical-offset="1406" max-vertical-offset="10166">
+          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/js/srlplayer2.js">
+    <entry file="file://$PROJECT_DIR$/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75503874" vertical-offset="1151" max-vertical-offset="10166">
-          <caret line="128" column="114" selection-start-line="128" selection-start-column="114" selection-end-line="128" selection-end-column="114" />
-          <folding />
+        <state vertical-scroll-proportion="0.6455696" vertical-offset="0" max-vertical-offset="4845">
+          <caret line="48" column="75" selection-start-line="48" selection-start-column="75" selection-end-line="48" selection-end-column="75" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
