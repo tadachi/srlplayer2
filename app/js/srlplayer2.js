@@ -592,4 +592,17 @@ $( document ).ready(function() {
 	$("#apply").click(function() { //Refresh after applying settings.
 		location.reload();
 	});
+
+    /************ Twitch login button logic ***********/
+    $('.twitch-connect').click(function() {
+        Twitch.login({
+            scope: ['user_read', 'channel_read']
+        });
+    })
+
+    if (status.authenticated) {
+        // Already logged in, hide button.
+        $('.twitch-connect').hide()
+    }
+
 });

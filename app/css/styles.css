@@ -108,6 +108,13 @@ display: none;
 
 .header-item{
 	margin-left: 20px;
+
+}
+
+.header-image-item {
+    margin-left: 20px;
+    height: 25px;
+    vertical-align: bottom;
 }
 
 .description {

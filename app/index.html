@@ -19,6 +19,13 @@
         <script src='js/angular.min.js'></script>
         <!-- srlplayer2.js must come after AngularJS and JQuery -->
         <script src='js/srlplayer2.js'></script>
+        <!-- twitch -->
+        <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+        <script>
+            Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, status) {
+                // the sdk is now loaded
+            });
+        </script>
         <!-- Google Analytics -->
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -37,7 +44,7 @@
         <div id='settings-menu'>
             <div style='position: relative; border: 1px solid;'>
                 <input id='show-followed-twitch-streams' type='checkbox'>Enable followed twitch streams. Enter <b>twitch</b> username:
-                <input id='twitch-username' type='text' value=''></input>
+                <input id='twitch-username' type='text' value=''>
             </div>
 
             <button id='apply' style='float: right; margin-top: 20px;' >Apply</button>
@@ -50,8 +57,9 @@
             <button id='settings' class="button130 white semi-square header-margin" >Settings</button>
             <button class="button130 white semi-square header-margin" ng-click="refreshStreams()">Refresh</button>
             <button id="toggle-right" class="button45 white semi-square header-margin" onclick="toggleRight()">>></button>
+            <img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" class="twitch-connect header-image-item" href="#" />
             <a class="header-item" href="http://mtc.takbytes.com" target="_blank">Multitwitchchat</a>
-            <a class="header-item" href="http://mtc.takbytes.com" target="https://github.com/tadachi/srlplayer2">Github</a>
+            <a class="header-item" href="https://github.com/tadachi/srlplayer2" target="_blank">Github</a>
         </div>
 
         <div id="left">
