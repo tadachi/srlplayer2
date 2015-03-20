@@ -37,15 +37,15 @@ select {
 }
 
 #settings-menu {
-z-index: 2;
+    z-index: 2;
 
-font-size: 12px;
-background-color:white;
-color: black;
-font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    background-color:white;
+    color: black;
+    font-family: Tahoma, Geneva, sans-serif;
 
-position: absolute;
-display: none;
+    position: absolute;
+    display: none;
 }
 
 #header{
@@ -54,6 +54,22 @@ display: none;
 	position: relative;
 	display: inline-block;
 }
+
+.header-item{
+    margin-left: 20px;
+
+}
+
+.header-image-item {
+    margin-left: 20px;
+    height: 25px;
+    vertical-align: bottom;
+}
+
+.header-margin {
+    margin-top: 9px;
+}
+
 #left{
 	background-color: lightgray;
 	overflow: scroll;
@@ -73,9 +89,7 @@ display: none;
 	display: inline-block;
 }
 
-.header-margin {
-	margin-top: 9px;
-}
+
 
 .button45 {
 	width: 45px;
@@ -106,16 +120,7 @@ display: none;
 	height: 75px;
 }
 
-.header-item{
-	margin-left: 20px;
 
-}
-
-.header-image-item {
-    margin-left: 20px;
-    height: 25px;
-    vertical-align: bottom;
-}
 
 .description {
 	font-size: 14px;

@@ -17,15 +17,10 @@
         <script src='js/async.min.js'></script> <!-- Combined with Jquery, it's used together for asynchronous REST calls. -->
         <!-- AngularJS -->
         <script src='js/angular.min.js'></script>
-        <!-- srlplayer2.js must come after AngularJS and JQuery -->
-        <script src='js/srlplayer2.js'></script>
         <!-- twitch -->
         <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
-        <script>
-            Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, status) {
-                // the sdk is now loaded
-            });
-        </script>
+        <!-- srlplayer2.js must come after AngularJS and JQuery -->
+        <script src='js/srlplayer2.js'></script>
         <!-- Google Analytics -->
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -57,7 +52,7 @@
             <button id='settings' class="button130 white semi-square header-margin" >Settings</button>
             <button class="button130 white semi-square header-margin" ng-click="refreshStreams()">Refresh</button>
             <button id="toggle-right" class="button45 white semi-square header-margin" onclick="toggleRight()">>></button>
-            <img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" class="twitch-connect header-image-item" href="#" />
+            <img class="twitch-connect header-image-item" src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png"  href="#" />
             <a class="header-item" href="http://mtc.takbytes.com" target="_blank">Multitwitchchat</a>
             <a class="header-item" href="https://github.com/tadachi/srlplayer2" target="_blank">Github</a>
         </div>
@@ -255,19 +250,19 @@
                     </div>
                 </div>
                 <div ng-switch-when="Followed">
-                    <div id="followed" ng-click="reloadTwitchVideoPlayer(d.stream.channel.display_name); reloadTwitchChat(d.stream.channel.display_name)"
-                            ng-repeat="d in followed" data="{{d.stream.channel.display_name}}" on-finish-render >
-                        <a href="/#!/?streamer={{d.stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                    <div id="followed" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
+                         ng-repeat="stream in followed.streams" data="{{stream.channel.display_name}}" on-finish-render >
+                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td rowspan="3"><img class="icon-logo" src="{{d.stream.channel.logo}}"
-                                            onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
-                                        <td class="stream-name">{{d.stream.channel.display_name}}</td>
-                                        <td class="viewer-count">{{d.stream.viewers}}</td>
+                                        <td rowspan="3"><img class="icon-logo" src="{{stream.channel.logo}}"
+                                                            onerror="this.src='http://cdn.makeuseof.com/wp-content/uploads/2013/03/twitch-tv-logo.jpg?f68ba1'"/></td>
+                                        <td class="stream-name">{{stream.channel.display_name}}</td>
+                                        <td class="viewer-count">{{stream.viewers}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="description" colspan="1">{{d.stream.channel.status}}</td>
+                                        <td class="description" colspan="1">{{stream.channel.status}}</td>
 										<td></td>
                                     </tr>
                                 </tbody>

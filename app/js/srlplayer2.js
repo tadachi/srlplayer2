@@ -1,3 +1,37 @@
+/************ Twitch login button logic ***********/
+var twitchAccessToken = null;
+// Production using production client id.
+Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, status) {
+    if (error) {
+        // error encountered while loading
+        console.log(error);
+    }
+    if (status.authenticated) {
+        // user is currently logged in
+        console.log("User is logged in: " + status.authenticated);
+        twitchAccessToken = Twitch.getToken();
+        console.log("Access Token: " + twitchAccessToken)
+    } else {
+        console.log("User is logged in: " + status.authenticated);
+    }
+});
+//// Test using test client id.
+//Twitch.init({clientId: 'b9ovkn884ycce01b4j7liozbey9de9l'}, function(error, status) {
+//    // The sdk is now loaded.
+//    if (error) {
+//        // error encountered while loading
+//        console.log(error);
+//    }
+//    if (status.authenticated) {
+//        // user is currently logged in
+//        console.log("User is logged in: " + status.authenticated);
+//        twitchAccessToken = Twitch.getToken();
+//        console.log("Access Token: " + twitchAccessToken)
+//    } else {
+//        console.log("User is logged in: " + status.authenticated);
+//    }
+//});
+
 /**
  * Similar to what you find in Java"s format.
  * Usage: chatsrc = "http://twitch.tv/chat/embed?channel={channel}&amp;popout_chat=true".format({ channel: streamer});
@@ -112,8 +146,8 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
         hitbox: "http://api.takbytes.com/hitbox",
         league: "http://api.takbytes.com/league",
         heroes: "http://api.takbytes.com/heroes",
-        diablo: "http://api.takbytes.com/diablo"
-
+        diablo: "http://api.takbytes.com/diablo",
+        followed: "https://api.twitch.tv/kraken/streams/followed?oauth_token={oauth_token}".format({ oauth_token: twitchAccessToken})
     };
 
 	
@@ -127,7 +161,36 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		$http.get($scope.urls.league).success(function(data) { console.log(data); $scope.league = angular.fromJson(data); });
         $http.get($scope.urls.heroes).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
         $http.get($scope.urls.diablo).success(function(data) { console.log(data); $scope.diablo = angular.fromJson(data); });
-		if (localStorage.getItem("twitch-username")) { loadStreams(function(data) { console.log(data.clean(null)); $scope.followed = data.clean(null);  } ); }// console.log(data.clean(null));
+
+        if (localStorage.getItem("twitch-username") && twitchAccessToken == null) { // Slower legacy way of getting followed streams without oauth
+            loadStreams(function(data) {
+                var clean_data = []
+                data.clean(null).forEach(function(o) {
+                    clean_data.push(o.stream);
+                });
+                $scope.followed = {streams: clean_data};
+                console.log({streams: data.clean(null)});
+                console.log({streams: clean_data});
+            });
+        } else { // Faster way with oauth for getting followed streams.
+            console.log("twitchAccessToken not null. Using twitchAccessToken to populate followed streams.");
+
+            // Throws a CORS error.
+            //$scope.url = "https://api.twitch.tv/kraken/streams/followed?oauth_token="+twitchAccessToken;
+            //$http.get($scope.url).success(function(data) { console.log(data); $scope.followed = angular.fromJson(data); });
+
+            $.ajax({
+                url: $scope.urls.followed,
+                jsonp: "callback",
+                dataType: "jsonp", // tell jQuery we're expecting JSONP.
+
+                success: function(data) {
+                    console.log(data); $scope.followed = angular.fromJson(data);
+                }
+            });
+
+
+        }
 	}
 
 	function loadStreams(callback) {
@@ -361,7 +424,6 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 
 	$interval(function(){
 		$scope.refreshStreams();
-		//$scope.loadStreams();
 		loadStreams();
 	},120000);
 	
@@ -561,39 +623,45 @@ var leftShow = true;
 var rightShow = true;
 
 /************  JQuery Main ************/
-$( window ).resize(function() {
-	applyResolutions();
-});
 
 $( document ).ready(function() {
 	applyResolutions();
 
-	/************ Manage settings with session/localstorage ************/
-	$("#settings").click(function() { //Show the settingsmenu div on click.
-		$("#settings-menu").toggle();
-	})
-	
-	if( localStorage.getItem("twitch-username") ) {
-		$("#twitch-username").val(localStorage.getItem("twitch-username"));
-		$("#show-followed-twitch-streams").prop("checked", true); // Checkbox is checked.
-		$("#twitch-username").prop("disabled",true); // Disable textbox.
-	}
+    $( window ).resize(function() {
+        applyResolutions();
+    });
 
-	$("#show-followed-twitch-streams").click(function() { // Toggle show followers on list of streamers.
-		if ($(this).is(":checked")) {
-			localStorage.setItem("twitch-username", $("#twitch-username").val());
-			$("#twitch-username").prop("disabled",true); // Disable textbox.
-		}else {
-			$("#twitch-username").prop("disabled",false); // Enable textbox.
-			localStorage.removeItem("twitch-username");
-		}
-	});
+    /************ Manage settings with session/localstorage ************/
+    $("#settings").click(function() { //Show the settingsmenu div on click.
+        $("#settings-menu").toggle();
+    })
 
-	$("#apply").click(function() { //Refresh after applying settings.
-		location.reload();
-	});
+    // Use twitchAccessToken if not null over hardcoded username in settings.
+    if (twitchAccessToken != null) {
+        if( localStorage.getItem("twitch-username") ) {
 
-    /************ Twitch login button logic ***********/
+            $("#twitch-username").val(localStorage.getItem("twitch-username"));
+            $("#show-followed-twitch-streams").prop("checked", true); // Checkbox is checked.
+            $("#twitch-username").prop("disabled", true); // Disable textbox.
+        }
+    }
+
+    // Toggle show followers on list of streamers to gray it out.
+    $("#show-followed-twitch-streams").click(function() {
+        if ($(this).is(":checked")) {
+            localStorage.setItem("twitch-username", $("#twitch-username").val());
+            $("#twitch-username").prop("disabled",true); // Disable textbox.
+        }else {
+            $("#twitch-username").prop("disabled",false); // Enable textbox.
+            localStorage.removeItem("twitch-username");
+        }
+    });
+
+    $("#apply").click(function() { //Refresh after applying settings.
+        location.reload();
+    });
+
+    // Twitch stuff.
     $('.twitch-connect').click(function() {
         Twitch.login({
             scope: ['user_read', 'channel_read']
@@ -604,5 +672,6 @@ $( document ).ready(function() {
         // Already logged in, hide button.
         $('.twitch-connect').hide()
     }
+
 
 });
