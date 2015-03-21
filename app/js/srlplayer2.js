@@ -62,7 +62,7 @@ if (!String.prototype.format) {
 function getQueryStringParams(sParam) {
 	var sPageURL      = window.location.href;
 	var sURLVariables = sPageURL.split("/");
-	var querystring;
+	var querystring = null;
 	var count         = 0;
 	var key;
 	var value;
