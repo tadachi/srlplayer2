@@ -4,7 +4,7 @@ var methodOverride  = require('method-override');
 var router          = express.Router();
 var vhost           = require('vhost');
 var app             = require('express.io')();
-
+var socket          = require('socket.io');
 var port            = parseInt(process.env.PORT, 10) || 4000;
 
 app.http().io();

@@ -11,11 +11,14 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
         console.log("User is logged in: " + status.authenticated);
         twitchAccessToken = Twitch.getToken();
         console.log("Access Token: " + twitchAccessToken)
+
+        // Already logged in, hide button.
+        $('#twitch-connect').hide()
     } else {
         console.log("User is logged in: " + status.authenticated);
     }
 });
-//// Test using test client id.
+// Test using test client id.
 //Twitch.init({clientId: 'b9ovkn884ycce01b4j7liozbey9de9l'}, function(error, status) {
 //    // The sdk is now loaded.
 //    if (error) {
@@ -27,6 +30,8 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
 //        console.log("User is logged in: " + status.authenticated);
 //        twitchAccessToken = Twitch.getToken();
 //        console.log("Access Token: " + twitchAccessToken)
+//        // Already logged in, hide button.
+//        $('#twitch-connect').hide()
 //    } else {
 //        console.log("User is logged in: " + status.authenticated);
 //    }
@@ -63,7 +68,6 @@ function getQueryStringParams(sParam) {
 	var sPageURL      = window.location.href;
 	var sURLVariables = sPageURL.split("/");
 	var querystring = null;
-	var count         = 0;
 	var key;
 	var value;
 
@@ -118,24 +122,8 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
     $scope.diablo = null;
     $scope.followed = null;
 
-	$scope.category = "Speedruns" //Default starts on Speedruns
-
 	/* Populate stream selector tables */
-	//$scope.categories = ["Speedruns", "Starcraft", "Hearthstone", "Dota", "Counterstrike", "Hitbox", "Azubu", "Followed"];
 	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Heroes", "Diablo", "Followed"];
-	$scope.selection = $scope.categories[0]; // Default
-
-	$scope.urls = [ // List of REST api calls with all the streams we want.
-		"http://api.takbytes.com/speedruns",
-		"http://api.takbytes.com/starcraft",
-		"http://api.takbytes.com/hearthstone",
-		"http://api.takbytes.com/dota",
-		"http://api.takbytes.com/counterstrike",
-		"http://api.takbytes.com/hitbox",
-		"http://api.takbytes.com/league",
-        "http://api.takbytes.com/heroes",
-        "http://api.takbytes.com/diablo"
-	];
 
     $scope.urls = {
         speedruns: "http://api.takbytes.com/speedruns",
@@ -150,8 +138,48 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
         followed: "https://api.twitch.tv/kraken/streams/followed?oauth_token={oauth_token}".format({ oauth_token: twitchAccessToken})
     };
 
+    $scope.setDefaultCategory = function() {
+        if (twitchAccessToken != null) {
+            console.log("Setting default category to Followed.");
+            $scope.selection = $scope.categories[9]; // Followed.
+        } else {
+            console.log("Setting default category to Speedruns.");
+            $scope.selection = $scope.categories[0]; // Speedruns.
+        }
+
+    }
 	
 	$scope.refreshStreams = function() {
+        if (twitchAccessToken != null) { // Slower legacy way of getting followed streams without oauth
+            console.log("twitchAccessToken not null. Using twitchAccessToken to populate followed streams.");
+
+            // Throws a CORS error.
+            //$http.get($scope.url).success(function(data) { console.log(data); $scope.followed = angular.fromJson(data); });
+
+            $.ajax({
+                url: $scope.urls.followed,
+                jsonp: "callback",
+                dataType: "jsonp", // tell jQuery we're expecting JSONP.
+
+                success: function(data) {
+                    console.log(data);
+                    $scope.followed = angular.fromJson(data);
+                    $scope.$apply(); // Not good practice but use it anyways.
+                }
+            });
+
+        } else if (localStorage.getItem("twitch-username") && twitchAccessToken == null) { // Faster way with oauth for getting followed streams.
+            console.log("twitchAccessToken is null. Using Settings user name to populate user followed streams.");
+            loadStreams(function(data) {
+                var clean_data = []
+                data.clean(null).forEach(function(o) {
+                    clean_data.push(o.stream);
+                });
+                $scope.followed = {streams: clean_data};
+                console.log({streams: data.clean(null)});
+                console.log({streams: clean_data});
+            });
+        }
 		$http.get($scope.urls.speedruns).success(function(data) { console.log(data); $scope.speedruns = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
 		$http.get($scope.urls.starcraft).success(function(data) { console.log(data); $scope.starcraft = angular.fromJson(data); });
 		$http.get($scope.urls.hearthstone).success(function(data) { console.log(data); $scope.hearthstone = angular.fromJson(data); });
@@ -162,35 +190,6 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
         $http.get($scope.urls.heroes).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
         $http.get($scope.urls.diablo).success(function(data) { console.log(data); $scope.diablo = angular.fromJson(data); });
 
-        if (localStorage.getItem("twitch-username") && twitchAccessToken == null) { // Slower legacy way of getting followed streams without oauth
-            loadStreams(function(data) {
-                var clean_data = []
-                data.clean(null).forEach(function(o) {
-                    clean_data.push(o.stream);
-                });
-                $scope.followed = {streams: clean_data};
-                console.log({streams: data.clean(null)});
-                console.log({streams: clean_data});
-            });
-        } else { // Faster way with oauth for getting followed streams.
-            console.log("twitchAccessToken not null. Using twitchAccessToken to populate followed streams.");
-
-            // Throws a CORS error.
-            //$scope.url = "https://api.twitch.tv/kraken/streams/followed?oauth_token="+twitchAccessToken;
-            //$http.get($scope.url).success(function(data) { console.log(data); $scope.followed = angular.fromJson(data); });
-
-            $.ajax({
-                url: $scope.urls.followed,
-                jsonp: "callback",
-                dataType: "jsonp", // tell jQuery we're expecting JSONP.
-
-                success: function(data) {
-                    console.log(data); $scope.followed = angular.fromJson(data);
-                }
-            });
-
-
-        }
 	}
 
 	function loadStreams(callback) {
@@ -424,10 +423,8 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 
 	$interval(function(){
 		$scope.refreshStreams();
-		loadStreams();
 	},120000);
-	
-	
+
 	/* On Refresh */
 	var streamer = getQueryStringParams("streamer");
 	var api = getQueryStringParams("api");
@@ -443,6 +440,8 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		}
 	}
 
+
+    $scope.setDefaultCategory();
 });
 
 // Emit an event when ngRepeat finishes rendering.
@@ -667,11 +666,6 @@ $( document ).ready(function() {
             scope: ['user_read', 'channel_read']
         });
     })
-
-    if (status.authenticated) {
-        // Already logged in, hide button.
-        $('.twitch-connect').hide()
-    }
 
 
 });
