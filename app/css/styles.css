@@ -57,7 +57,7 @@ select {
 
 .header-item{
     margin-left: 20px;
-
+    text-decoration: none;
 }
 
 .header-image-item {
@@ -88,8 +88,6 @@ select {
 	position: relative;
 	display: inline-block;
 }
-
-
 
 .button45 {
 	width: 45px;

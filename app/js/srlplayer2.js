@@ -1,7 +1,7 @@
 /************ Twitch login button logic ***********/
 var twitchAccessToken = null;
 // Production using production client id.
-Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, status) {
+Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrrjyi'}, function(error, status) {
     if (error) {
         // error encountered while loading
         console.log(error);
@@ -122,7 +122,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
     $scope.diablo = null;
     $scope.followed = null;
 
-	/* Populate stream selector tables */
+	// Populate stream selector tables.
 	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Heroes", "Diablo", "Followed"];
 
     $scope.urls = {
@@ -458,7 +458,10 @@ app.directive("onFinishRender", function ($timeout) {
 	}
 });
 
-/************** Resolutions **************/
+/*****
+ *
+ * Resolutions
+ */
 function calcContainer() {
 	containerWidth = $(window).width();
 	containerHeight = $(window).height();
@@ -549,9 +552,7 @@ function applyResolutions() {
 	$('#chat').css('height', right.h);
 }
 
-
-/************** Resize **************/
-/**
+/*******
  * Resize video player using Resolution subroutines.
  */
 function maximizeVideoPlayerResolution() {
@@ -617,12 +618,16 @@ function toggleRight() {
 	}
 }
 
+
+
+/*****
+ * JQuery Main
+ *
+ *****/
+
 // By default show the left and right divs.
 var leftShow = true;
 var rightShow = true;
-
-/************  JQuery Main ************/
-
 $( document ).ready(function() {
 	applyResolutions();
 
@@ -666,6 +671,5 @@ $( document ).ready(function() {
             scope: ['user_read', 'channel_read']
         });
     })
-
-
 });
+

@@ -17,6 +17,9 @@
         <script src='js/async/async.js'></script> <!-- Combined with Jquery, it's used together for asynchronous REST calls. -->
         <!-- AngularJS -->
         <script src='js/angular/angular.min.js'></script>
+        <!-- Socket.io.client -->
+        <!--<script src='js/socket.io.js/socket.io.js'></script>-->
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <!-- twitch -->
         <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
         <!-- srlplayer2.js must come after AngularJS and JQuery -->
@@ -53,10 +56,19 @@
             <!-- Remove refresh. App automatically updates every 3 minutes anyways. -->
             <!--<button class="button130 white semi-square header-margin" ng-click="refreshStreams()">Refresh</button>-->
             <button id="toggle-right" class="button45 white semi-square header-margin" onclick="toggleRight()">>></button>
-            <img id="twitch-connect" class="twitch-connect header-image-item" src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png"  href="#" />
+            <img id="twitch-connect" class="twitch-connect header-image-item" src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" href="#" />
+            <span id='connected' class="senlightfont header-item"></span>
             <a class="header-item senlightfont" href="http://mtc.takbytes.com" target="_blank">multi-twitch-chat</a>
             <a class="header-item senlightfont" href="https://github.com/tadachi/srlplayer2" target="_blank">Github</a>
         </div>
+
+        <script>
+            var socket = io();
+            socket.emit('connect srl', true);
+            socket.on('connected srl', function(msg){
+                $('#connected').text("connected: " + msg);
+            });
+        </script>
 
         <div id="left">
             <div ng-switch on="selection"> <!-- Show/hide stream category table -->
