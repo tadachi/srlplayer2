@@ -392,7 +392,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		right = calcRight();
 
 		// Change the chat to the corresponding video channel.
-		src = 'http://twitch.tv/chat/{CHANNEL}'.format({
+		src = 'http://twitch.tv/chat/embed?channel={CHANNEL}'.format({
 			CHANNEL: streamername});
 
 		html =    ['<iframe ',
