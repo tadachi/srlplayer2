@@ -180,15 +180,57 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
                 console.log({streams: clean_data});
             });
         }
-		$http.get($scope.urls.speedruns).success(function(data) { console.log(data); $scope.speedruns = angular.fromJson(data); }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
-		$http.get($scope.urls.starcraft).success(function(data) { console.log(data); $scope.starcraft = angular.fromJson(data); });
-		$http.get($scope.urls.hearthstone).success(function(data) { console.log(data); $scope.hearthstone = angular.fromJson(data); });
-		$http.get($scope.urls.dota).success(function(data) { console.log(data); $scope.dota = angular.fromJson(data); });
-		$http.get($scope.urls.counterstrike).success(function(data) { console.log(data); $scope.counterstrike = angular.fromJson(data); });
-		$http.get($scope.urls.hitbox).success(function(data) { console.log(data); $scope.hitbox = angular.fromJson(data); });
-		$http.get($scope.urls.league).success(function(data) { console.log(data); $scope.league = angular.fromJson(data); });
-        $http.get($scope.urls.heroes).success(function(data) { console.log(data); $scope.heroes = angular.fromJson(data); });
-        $http.get($scope.urls.diablo).success(function(data) { console.log(data); $scope.diablo = angular.fromJson(data); });
+		$http.get($scope.urls.speedruns).success(function(data) {
+            console.log(data);
+            data = httpsifySpeedruns(data);
+            console.log(data);
+            $scope.speedruns = angular.fromJson(data);
+        }); // Data returned is JSON. Convert it to Array Object for populating our stream list.
+		$http.get($scope.urls.starcraft).success(function(data) {
+            data = httpsifyTwitch(data);
+            console.log(data);
+            $scope.starcraft = angular.fromJson(data);
+        });
+		$http.get($scope.urls.hearthstone).success(function(data) { data = httpsifyTwitch(data); console.log(data); $scope.hearthstone = angular.fromJson(data); });
+		$http.get($scope.urls.dota).success(function(data) { data = httpsifyTwitch(data); console.log(data);$scope.dota = angular.fromJson(data); });
+		$http.get($scope.urls.counterstrike).success(function(data) { data = httpsifyTwitch(data); console.log(data);  $scope.counterstrike = angular.fromJson(data); });
+		$http.get($scope.urls.hitbox).success(function(data) { data = httpsifyHitbox(data); console.log(data);  $scope.hitbox = angular.fromJson(data); });
+		$http.get($scope.urls.league).success(function(data) { data = httpsifyTwitch(data); console.log(data); $scope.league = angular.fromJson(data); });
+        $http.get($scope.urls.heroes).success(function(data) { data = httpsifyTwitch(data); console.log(data); $scope.heroes = angular.fromJson(data); });
+        $http.get($scope.urls.diablo).success(function(data) { data = httpsifyTwitch(data); console.log(data); $scope.diablo = angular.fromJson(data); });
+
+        function httpsifySpeedruns(data) {
+            for ( var i = 0; i < data._source.channels.length; i++) {
+                url = data._source.channels[i].image.size70;
+                if (url) {
+                    url = url.replace(/^http:\/\//i, 'https://');
+                    data._source.channels[i].image.size70 = url;
+                }
+            }
+            return data;
+        }
+
+        function httpsifyTwitch(data) {
+            for ( var i = 0; i < data.streams.length; i++) {
+                url = data.streams[i].channel.logo;
+                if (url) {
+                    url = url.replace(/^http:\/\//i, 'https://');
+                    data.streams[i].channel.logo = url;
+                }
+            }
+            return data;
+        }
+
+        function httpsifyHitbox(data) {
+            for ( var i = 0; i < data.length; i++) {
+                url = data[i].user_logo;
+                if (url) {
+                    url = url.replace(/^http:\/\//i, 'https://');
+                    data[i].user_logo = url;
+                }
+            }
+            return data;
+        }
 
 	}
 
