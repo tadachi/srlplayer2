@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta content='text/html; charset=utf-8' http-equiv='content-type'>
         <title>srlplayer2 - lists popular gaming streams in a tabular format with built-in chat.</title>
-        <meta name='description' content='Twitch stream viewer specifically for speedrunslive streamers <3. http://srl.takbytes.com'>
+        <meta name='description' content='Twitch stream viewer specifically for speedrunslive streamers <3. http://www.takbytes.com/srlplayer2/'>
         <meta name='keywords' content='srlplayer takbytes.com SRL speedrunslive speedrunslive streamer speedrunslivestreamer srlstreamer srlplayer twitch twitchstreamer twitchplayer'>
         <meta name='author' content='takada'>
 
@@ -76,7 +76,7 @@
                     <div id="speedruns" ng-click="reloadTwitchVideoPlayer(channel.display_name); reloadTwitchChat(channel.display_name)"
                         ng-repeat="channel in speedruns._source.channels | orderBy:'current_viewers':true" data="{{channel.display_name}}"
                             ng-if="channel.api=='twitch'" on-finish-render >
-                        <a href="/#!/?streamer={{channel.display_name}}&api=twitch">
+                        <a href="/srlplayer2/#!/?streamer={{channel.display_name}}&api=twitch">
                             <table class="table">
                                 <tbody>
                                     <tr>
@@ -97,7 +97,7 @@
                 <div ng-switch-when="Starcraft">
                     <div id="starcraft" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in starcraft.streams" data="{{stream.channel.display_name}}" on-finish-render >
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
@@ -118,7 +118,7 @@
                 <div ng-switch-when="Hearthstone">
                     <div id="hearthstone" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in hearthstone.streams" data="{{stream.channel.display_name}}" on-finish-render>
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
@@ -139,7 +139,7 @@
 			    <div ng-switch-when="Dota">
                     <div id="dota" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in dota.streams" data="{{stream.channel.display_name}}" on-finish-render>
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
@@ -160,7 +160,7 @@
                 <div ng-switch-when="Counterstrike">
                     <div id="counterstrike" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in counterstrike.streams" data="{{stream.channel.display_name}}" on-finish-render>
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
@@ -181,7 +181,7 @@
 			    <div ng-switch-when="Hitbox">
                     <div id="hitbox" ng-click="reloadHitboxVideoPlayer(stream.user_name); reloadHitboxChat(stream.user_name)"
                             ng-repeat="stream in hitbox" data="{{stream.user_name}}" on-finish-render >
-                        <a href="/#!/?streamer={{stream.user_name}}&api=hitbox"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.user_name}}&api=hitbox"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
@@ -202,7 +202,7 @@
 				<div ng-switch-when="LeagueOfLegends">
                     <div id="league" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                             ng-repeat="stream in league.streams" data="{{stream.channel.display_name}}" on-finish-render>
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
@@ -223,7 +223,7 @@
                 <div ng-switch-when="Heroes">
                     <div id="heroes" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                          ng-repeat="stream in heroes.streams" data="{{stream.channel.display_name}}" on-finish-render>
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                 <tr>
@@ -244,7 +244,7 @@
                 <div ng-switch-when="Diablo">
                     <div id="diablo" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                          ng-repeat="stream in diablo.streams" data="{{stream.channel.display_name}}" on-finish-render>
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                 <tr>
@@ -265,7 +265,7 @@
                 <div ng-switch-when="Followed">
                     <div id="followed" ng-click="reloadTwitchVideoPlayer(stream.channel.display_name); reloadTwitchChat(stream.channel.display_name)"
                          ng-repeat="stream in followed.streams" data="{{stream.channel.display_name}}" on-finish-render >
-                        <a href="/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
+                        <a href="/srlplayer2/#!/?streamer={{stream.channel.display_name}}&api=twitch"> <!-- wrap it in <a> so we can open in new tab, etc -->
                             <table>
                                 <tbody>
                                     <tr>
