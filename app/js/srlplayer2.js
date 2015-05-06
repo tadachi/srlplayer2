@@ -18,23 +18,23 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
         console.log("User is logged in: " + status.authenticated);
     }
 });
-Twitch.init({clientId: '2e025j6mqdbziwja659s3t7a3okda7y'}, function(error, status) {
-    if (error) {
-        // error encountered while loading
-        console.log(error);
-    }
-    if (status.authenticated) {
-        // user is currently logged in
-        console.log("User is logged in (https): " + status.authenticated);
-        twitchAccessToken = Twitch.getToken();
-        console.log("Access Token: " + twitchAccessToken)
-
-        // Already logged in, hide button.
-        $('#twitch-connect').hide()
-    } else {
-        console.log("User is logged in: " + status.authenticated);
-    }
-});
+//Twitch.init({clientId: '2e025j6mqdbziwja659s3t7a3okda7y'}, function(error, status) {
+//    if (error) {
+//        // error encountered while loading
+//        console.log(error);
+//    }
+//    if (status.authenticated) {
+//        // user is currently logged in
+//        console.log("User is logged in (https): " + status.authenticated);
+//        twitchAccessToken = Twitch.getToken();
+//        console.log("Access Token: " + twitchAccessToken)
+//
+//        // Already logged in, hide button.
+//        $('#twitch-connect').hide()
+//    } else {
+//        console.log("User is logged in: " + status.authenticated);
+//    }
+//});
 
 /**
  * Similar to what you find in Java"s format.
