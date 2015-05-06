@@ -8,7 +8,7 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
     }
     if (status.authenticated) {
         // user is currently logged in
-        console.log("User is logged in: " + status.authenticated);
+        console.log("User is logged in (http): " + status.authenticated);
         twitchAccessToken = Twitch.getToken();
         console.log("Access Token: " + twitchAccessToken)
 
@@ -18,24 +18,23 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
         console.log("User is logged in: " + status.authenticated);
     }
 });
-// Test using test client id.
-//Twitch.init({clientId: 'b9ovkn884ycce01b4j7liozbey9de9l'}, function(error, status) {
-//    // The sdk is now loaded.
-//    if (error) {
-//        // error encountered while loading
-//        console.log(error);
-//    }
-//    if (status.authenticated) {
-//        // user is currently logged in
-//        console.log("User is logged in: " + status.authenticated);
-//        twitchAccessToken = Twitch.getToken();
-//        console.log("Access Token: " + twitchAccessToken)
-//        // Already logged in, hide button.
-//        $('#twitch-connect').hide()
-//    } else {
-//        console.log("User is logged in: " + status.authenticated);
-//    }
-//});
+Twitch.init({clientId: '2e025j6mqdbziwja659s3t7a3okda7y'}, function(error, status) {
+    if (error) {
+        // error encountered while loading
+        console.log(error);
+    }
+    if (status.authenticated) {
+        // user is currently logged in
+        console.log("User is logged in (https): " + status.authenticated);
+        twitchAccessToken = Twitch.getToken();
+        console.log("Access Token: " + twitchAccessToken)
+
+        // Already logged in, hide button.
+        $('#twitch-connect').hide()
+    } else {
+        console.log("User is logged in: " + status.authenticated);
+    }
+});
 
 /**
  * Similar to what you find in Java"s format.
@@ -126,15 +125,15 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 	$scope.categories = ["Speedruns", "Starcraft", "Hitbox", "Hearthstone", "Dota", "Counterstrike", "LeagueOfLegends", "Heroes", "Diablo", "Followed"];
 
     $scope.urls = {
-        speedruns: "http://api.takbytes.com/speedruns",
-        starcraft: "http://api.takbytes.com/starcraft",
-        hearthstone: "http://api.takbytes.com/hearthstone",
-        dota: "http://api.takbytes.com/dota",
-        counterstrike: "http://api.takbytes.com/counterstrike",
-        hitbox: "http://api.takbytes.com/hitbox",
-        league: "http://api.takbytes.com/league",
-        heroes: "http://api.takbytes.com/heroes",
-        diablo: "http://api.takbytes.com/diablo",
+        speedruns: "https://api.takbytes.com/speedruns",
+        starcraft: "https://api.takbytes.com/starcraft",
+        hearthstone: "https://api.takbytes.com/hearthstone",
+        dota: "https://api.takbytes.com/dota",
+        counterstrike: "https://api.takbytes.com/counterstrike",
+        hitbox: "https://api.takbytes.com/hitbox",
+        league: "https://api.takbytes.com/league",
+        heroes: "https://api.takbytes.com/heroes",
+        diablo: "https://api.takbytes.com/diablo",
         followed: "https://api.twitch.tv/kraken/streams/followed?oauth_token={oauth_token}".format({ oauth_token: twitchAccessToken})
     };
 
