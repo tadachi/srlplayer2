@@ -11,18 +11,18 @@ License: MIT
 
 Install the latest version of Node.js for your OS.
 
-Use this command in the same directory with the [package.json](https://github.com/tadachi/multitwitchchat/blob/master/package.json) file to install all the dependencies to get the node dev-server working.
+Use this command in the same directory with the [package.json](https://github.com/tadachi/srlplayer2/blob/master/package.json) file to install all the dependencies to get the node dev-server working.
 
 ```bash
 npm install
 ```
 
-In [dev-server.js](https://github.com/tadachi/srlplayer/blob/master/dev-server.js) file, find the code line below and change it to fit your needs. Or you can try http://localhost:4001
+In [dev-server.js](https://github.com/tadachi/srlplayer2/blob/master/dev-server.js) file, find the code line below and change it to fit your needs. Or you can try http://localhost:4001
 
 ```javascript
 ...
 ...
-var hostname = 'sa.tak.com'; // Change this to your hostname.
+var hostname = 'srl.tak.com'; // Change this to your hostname.
 ...
 ...
 ```
@@ -33,7 +33,7 @@ To get the server running,
 node dev-server.js
 ...
 Listening on port: 4001
-hostname: sa.tak.com:4001
+hostname: srl.tak.com:4001
 ```
 
 For me, since I added sa.tak.com into my host file, I can resolve to to it. I would enter http://sa.tak.com:4001 into my browser to use/test the app. You would use another host name or try http://localhost:4001.
@@ -48,7 +48,7 @@ Please don't hesitate to do a pull request. On anything.
 Some features/bugfixes I want to implement in the future:
 
 ###### Bugs that need to be fixed:
-* Find a fix for clicking on stream and redirect window directly to twitch instead of opening a new tab.
+* ~~Find a fix for clicking on stream and redirect window directly to twitch instead of opening a new tab.~~ fixed
 
 ###### Simple features to implement:
 * Add setting where you can change default selected category for dropdown box.

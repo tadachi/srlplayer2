@@ -1,6 +1,8 @@
 {
 	"name": "srlplayer",
+    "description": "Develop against this server.",
 	"main": "dev-server.js",
+    "private": true,
 	"dependencies": {
         "express": "^5.0.0-alpha.1",
         "express.io": "^1.1.13",

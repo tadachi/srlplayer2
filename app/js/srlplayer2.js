@@ -36,6 +36,8 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
 //    }
 //});
 
+
+
 /**
  * Similar to what you find in Java"s format.
  * Usage: chatsrc = "http://twitch.tv/chat/embed?channel={channel}&amp;popout_chat=true".format({ channel: streamer});
@@ -414,7 +416,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
      * @param streamername
      */
 	$scope.reloadHitboxVideoPlayer = function(streamername) {
-		center = calcCenter();
+        center = calcCenter();
 
 		// Create the channel string based on chosen stream.
 		flashvars = "channel={CHANNEL}&auto_play=true".format({
