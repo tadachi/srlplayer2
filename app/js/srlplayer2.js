@@ -40,7 +40,7 @@ Twitch.init({clientId: 'r4ql17x8negum4p7fcxaobhzrrqrjyi'}, function(error, statu
 
 /**
  * Similar to what you find in Java"s format.
- * Usage: chatsrc = "http://twitch.tv/chat/embed?channel={channel}&amp;popout_chat=true".format({ channel: streamer});
+ * Usage: chatsrc = "https://twitch.tv/chat/embed?channel={channel}&amp;popout_chat=true".format({ channel: streamer});
  */
 if (!String.prototype.format) {
 	String.prototype.format = function() {
@@ -149,7 +149,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
         }
 
     }
-	
+
 	$scope.refreshStreams = function() {
         if (twitchAccessToken != null) { // Slower legacy way of getting followed streams without oauth
             console.log("twitchAccessToken not null. Using twitchAccessToken to populate followed streams.");
@@ -236,7 +236,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 	}
 
 	function loadStreams(callback) {
-		twitch_username = localStorage.getItem("twitch-username"); // Used for getting all streams that twitch user follows
+		var twitch_username = localStorage.getItem("twitch-username"); // Used for getting all streams that twitch user follows.
 
 		getAllFollowedStreams(twitch_username, function(results) {
 			callback(results);
@@ -394,7 +394,7 @@ app.controller("MainController", function($scope, $http, $location, $interval) {
 		right = calcRight();
 
 		// Change the chat to the corresponding video channel.
-		src = 'http://twitch.tv/chat/embed?channel={CHANNEL}'.format({
+		src = 'https://twitch.tv/chat/embed?channel={CHANNEL}'.format({
 			CHANNEL: streamername});
 
 		html =    ['<iframe ',
@@ -716,4 +716,3 @@ $( document ).ready(function() {
         });
     })
 });
-
